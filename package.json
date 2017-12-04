@@ -4,7 +4,7 @@
   "description": "Library that defines build process for node apps",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublishOnly": "git tag v$(cat package.json | grep version | head -n1  | cut -d \\\" -f 4) && git push --tags origin master"
   },
   "keywords": [
     "node",
