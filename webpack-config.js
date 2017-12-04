@@ -6,8 +6,6 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 
-const babelLoader = require("babel-loader");
-
 exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, opts = {}) {
   const PUBLIC_PATH = `/${publisherName}/assets/`;
   const OUTPUT_DIRECTORY = currentDirectory + `/public/${PUBLIC_PATH}`;
