@@ -1,0 +1,6 @@
+{
+  "app.js": "/toddy/assets/app.js",
+  "gears.svg": "/toddy/assets/gears.svg",
+  "pw_maze_white.png": "/toddy/assets/pw_maze_white.png",
+  "serviceWorkerHelper.js": "/toddy/assets/serviceWorkerHelper.js"
+}
