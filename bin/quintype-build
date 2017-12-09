@@ -1,4 +1,9 @@
 #!/bin/sh -e
 
+export NODE_ENV=production
+
 npm run compile
 ./node_modules/.bin/babel app -d app --presets react --plugins transform-es2015-modules-commonjs
+rm -rf node-modules
+npm install --no-optional --production
+rm -rf /app/.git /app/.npm
