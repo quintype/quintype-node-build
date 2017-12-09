@@ -1,3 +1,4 @@
 #!/bin/sh -e
 
-exec ./node_modules/.bin/babel app -d app --presets react --plugins transform-es2015-modules-commonjs
+npm run compile
+./node_modules/.bin/babel app -d app --presets react --plugins transform-es2015-modules-commonjs
