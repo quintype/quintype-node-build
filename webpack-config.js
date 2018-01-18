@@ -25,7 +25,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
             "css-loader?minimize=true!sass-loader"
           ),
           cssFile: `[name]-[contenthash:20].css`,
-          compressJSPlugins: [new UglifyJSPlugin({uglifyOptions: {ecma: 5}})],
+          compressJSPlugins: [new UglifyJSPlugin()],
           outputPublicPath: PUBLIC_PATH
         }
       : {
