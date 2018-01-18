@@ -49,6 +49,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
     module: {
       rules: [
         { test: /\.jsx?$/, exclude: /node_modules/, use: BABEL_PRESET },
+        { test: /\.jsx?$/, include: /node_modules\/@quintype\/framework/, use: BABEL_PRESET },
         { test: /\.(sass|scss)$/, loader: config.sassLoader },
         {
           test: /\.(jpe?g|gif|png|svg|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
