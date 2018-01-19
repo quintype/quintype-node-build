@@ -25,14 +25,14 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
             "css-loader?minimize=true!sass-loader"
           ),
           cssFile: `[name]-[contenthash:20].css`,
-          compressJSPlugins: [new UglifyJSPlugin()],
+          compressJSPlugins: opts.compressJSPlugins || [new UglifyJSPlugin()],
           outputPublicPath: PUBLIC_PATH
         }
       : {
           outputFileName: suffix => `[name].${suffix}`,
           sassLoader: "style-loader!css-loader!sass-loader",
           cssFile: `[name].css`,
-          compressJSPlugins: [new webpack.NamedModulesPlugin()],
+          compressJSPlugins: opts.compressJSPlugins || [new webpack.NamedModulesPlugin()],
           outputPublicPath: "http://localhost:8080" + PUBLIC_PATH
         };
 
