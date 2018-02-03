@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const process = require("process");
 const path = require("path");
+const fs = require("fs");
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
@@ -36,11 +37,17 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
           outputPublicPath: "http://localhost:8080" + PUBLIC_PATH
         };
 
+  const entryFiles = {
+    app: "./app/client/app.js",
+    serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs"
+  };
+
+  if(fs.existsSync("./app/client/polyfill.js")) {
+    entryFiles["polyfill"] = "./app/client/polyfill.js";
+  }
+
   return {
-    entry: {
-      app: "./app/client/app.js",
-      serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs"
-    },
+    entry: entryFiles,
     output: {
       path: OUTPUT_DIRECTORY,
       filename: config.outputFileName("js"),
