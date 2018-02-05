@@ -18,6 +18,24 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
     }
   };
 
+  const SASS_PRESET_WITH_SOURCEMAP = [
+    {
+      loader: "style-loader"
+    },
+    {
+      loader: "css-loader",
+      options: {
+        sourceMap: true,
+      }
+    },
+    {
+      loader: "sass-loader",
+      options: {
+        sourceMap: true
+      }
+    }
+  ];
+
   const config =
     process.env.NODE_ENV == "production"
       ? {
@@ -27,14 +45,16 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
           ),
           cssFile: `[name]-[contenthash:20].css`,
           compressJSPlugins: opts.compressJSPlugins || [new UglifyJSPlugin()],
-          outputPublicPath: PUBLIC_PATH
+          outputPublicPath: PUBLIC_PATH,
+          sourceMapType: 'source-map'
         }
       : {
           outputFileName: suffix => `[name].${suffix}`,
-          sassLoader: "style-loader!css-loader!sass-loader",
+          sassLoader: SASS_PRESET_WITH_SOURCEMAP,
           cssFile: `[name].css`,
           compressJSPlugins: opts.compressJSPlugins || [new webpack.NamedModulesPlugin()],
-          outputPublicPath: "http://localhost:8080" + PUBLIC_PATH
+          outputPublicPath: "http://localhost:8080" + PUBLIC_PATH,
+          sourceMapType: 'eval-source-map'
         };
 
   const entryFiles = {
@@ -58,7 +78,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
         { test: /\.jsx?$/, exclude: /node_modules/, use: BABEL_PRESET },
         { test: /\.jsx?$/, include: /node_modules\/@quintype\/framework/, use: BABEL_PRESET },
         { test: /\.jsx?$/, include: /node_modules\/@quintype\/components\/store/, use: BABEL_PRESET },
-        { test: /\.(sass|scss)$/, loader: config.sassLoader },
+        { test: /\.(sass|scss)$/, use: config.sassLoader },
         {
           test: /\.(jpe?g|gif|png|svg|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
           loader: "file-loader",
@@ -81,6 +101,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
 
     devServer: {
       headers: { "Access-Control-Allow-Origin": "*" }
-    }
+    },
+    devtool: config.sourceMapType
   };
 };
