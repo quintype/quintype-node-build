@@ -3,6 +3,7 @@
 export NODE_ENV=production
 
 npm run compile
+rm -rf app/client # Removing app/client so that no one accidently requires it
 ./node_modules/.bin/babel app -d app --presets react --plugins transform-es2015-modules-commonjs,quintype-assets
 rm -rf node-modules
 npm install --no-optional --production
