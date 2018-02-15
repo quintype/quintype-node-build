@@ -4,6 +4,10 @@ module.exports = function startDevMode(opts) {
     plugins: [
       "transform-es2015-modules-commonjs",
       "quintype-assets",
+      ["react-css-modules", {
+        removeImport: true,
+        generateScopedName: "[name]__[local]__[hash:base64:5]"
+      }]
     ]
   }, opts.babelOpts));
 }

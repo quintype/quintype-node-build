@@ -14,27 +14,12 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
   const BABEL_PRESET = {
     loader: "babel-loader",
     options: {
-      presets: ["es2015-tree-shaking", "react"]
+      presets: ["es2015-tree-shaking", "react"],
+      plugins: [
+        ["react-css-modules", {webpackHotModuleReloading: process.env.NODE_ENV != "production", generateScopedName: "[name]__[local]__[hash:base64:5]"}]
+      ],
     }
   };
-
-  const SASS_PRESET_WITH_SOURCEMAP = [
-    {
-      loader: "style-loader"
-    },
-    {
-      loader: "css-loader",
-      options: {
-        sourceMap: true,
-      }
-    },
-    {
-      loader: "sass-loader",
-      options: {
-        sourceMap: true
-      }
-    }
-  ];
 
   const config =
     process.env.NODE_ENV == "production"
@@ -43,6 +28,9 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
           sassLoader: ExtractTextPlugin.extract(
             "css-loader?minimize=true!sass-loader"
           ),
+          cssModuleLoader: ExtractTextPlugin.extract(
+            "css-loader?minimize=true&modules&importLoaders=1",
+          ),
           cssFile: `[name]-[contenthash:20].css`,
           compressJSPlugins: opts.compressJSPlugins || [new UglifyJSPlugin()],
           outputPublicPath: PUBLIC_PATH,
@@ -50,7 +38,8 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
         }
       : {
           outputFileName: suffix => `[name].${suffix}`,
-          sassLoader: SASS_PRESET_WITH_SOURCEMAP,
+          sassLoader: [{loader: "style-loader"}, {loader: "css-loader", options: {sourceMap: true}}, {loader: "sass-loader", options: {sourceMap: true}}],
+          cssModuleLoader: [{loader: "style-loader"}, {loader: "css-loader", options: {sourceMap: true, modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]"}}],
           cssFile: `[name].css`,
           compressJSPlugins: opts.compressJSPlugins || [new webpack.NamedModulesPlugin()],
           outputPublicPath: "http://localhost:8080" + PUBLIC_PATH,
@@ -79,6 +68,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
         { test: /\.jsx?$/, include: /node_modules\/@quintype\/framework/, use: BABEL_PRESET },
         { test: /\.jsx?$/, include: /node_modules\/@quintype\/components\/store/, use: BABEL_PRESET },
         { test: /\.(sass|scss)$/, use: config.sassLoader },
+        { test: /\.module.css$/, use: config.cssModuleLoader },
         {
           test: /\.(jpe?g|gif|png|svg|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
           loader: "file-loader",

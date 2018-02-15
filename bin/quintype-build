@@ -4,7 +4,13 @@ export NODE_ENV=production
 
 npm run compile
 rm -rf app/client # Removing app/client so that no one accidently requires it
+
+if [ ! -f .babelrc ]; then
+  cp ./node_modules/@quintype/build/default-babel-rc .babelrc
+fi
+
 ./node_modules/.bin/babel app -d app --presets react --plugins transform-es2015-modules-commonjs,quintype-assets
+
 rm -rf node-modules
 npm install --no-optional --production
 rm -rf /app/.git /app/.npm
