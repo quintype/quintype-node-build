@@ -29,7 +29,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
             "css-loader?minimize=true!sass-loader"
           ),
           cssModuleLoader: ExtractTextPlugin.extract(
-            "css-loader?minimize=true&modules&importLoaders=1",
+            "css-loader?minimize=true&modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]",
           ),
           cssFile: `[name]-[contenthash:20].css`,
           compressJSPlugins: opts.compressJSPlugins || [new UglifyJSPlugin()],
