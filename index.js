@@ -3,6 +3,7 @@ module.exports = function startDevMode(opts) {
     presets: ["react"],
     plugins: [
       "transform-es2015-modules-commonjs",
+      "dynamic-import-node",
       "quintype-assets",
       ["react-css-modules", {
         removeImport: true,
