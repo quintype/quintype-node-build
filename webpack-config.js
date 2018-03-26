@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("fs");
 
 const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
+const FlushCSSChunksWebpackPlugin = require('flush-css-chunks-webpack-plugin');
 const ManifestPlugin = require("webpack-manifest-plugin");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 
@@ -86,6 +87,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
     plugins: [
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new ExtractCssChunks({ filename: config.cssFile }),
+      new FlushCSSChunksWebpackPlugin,
       new ManifestPlugin({
         fileName: "../../../asset-manifest.json",
         publicPath: PUBLIC_PATH,
