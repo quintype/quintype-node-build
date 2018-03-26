@@ -3,7 +3,6 @@ const process = require("process");
 const path = require("path");
 const fs = require("fs");
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
@@ -26,7 +25,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
     process.env.NODE_ENV == "production"
       ? {
           outputFileName: suffix => `[name]-[hash:20].${suffix}`,
-          sassLoader: ExtractTextPlugin.extract(
+          sassLoader: ExtractCssChunks.extract(
             "css-loader?minimize=true!sass-loader"
           ),
           cssModuleLoader: ExtractCssChunks.extract(
@@ -39,7 +38,9 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
         }
       : {
           outputFileName: suffix => `[name].${suffix}`,
-          sassLoader: [{loader: "style-loader"}, {loader: "css-loader", options: {sourceMap: true}}, {loader: "sass-loader", options: {sourceMap: true}}],
+          sassLoader: ExtractCssChunks.extract(
+            "css-loader?!sass-loader"
+          ),
           cssModuleLoader: ExtractCssChunks.extract(
             "css-loader?modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]",
           ),
@@ -84,7 +85,6 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
     },
     plugins: [
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
-      new ExtractTextPlugin({ filename: config.cssFile, allChunks: true }),
       new ExtractCssChunks({ filename: config.cssFile }),
       new ManifestPlugin({
         fileName: "../../../asset-manifest.json",
