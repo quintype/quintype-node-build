@@ -17,7 +17,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
     options: {
       presets: ["es2015-tree-shaking", "react"],
       plugins: [
-        ["react-css-modules", {webpackHotModuleReloading: process.env.NODE_ENV != "production", generateScopedName: "[name]__[local]__[hash:base64:5]"}]
+        ["dual-import", "react-css-modules", {webpackHotModuleReloading: process.env.NODE_ENV != "production", generateScopedName: "[name]__[local]__[hash:base64:5]"}]
       ],
     }
   };
