@@ -5,7 +5,7 @@ const fs = require("fs");
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const ExtractTextPlugin = require("extract-text-webpack-plugin");
-// const ManifestPlugin = require("webpack-manifest-plugin");
+const ManifestPlugin = require("webpack-manifest-plugin");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 
 exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, opts = {}) {
@@ -85,13 +85,17 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
       new MiniCssExtractPlugin({
         filename: "[name].css",
         chunkFilename: "[id].css"
-      })
+      }),
       // new ExtractTextPlugin({ filename: config.cssFile, allChunks: true }),
-      // new ManifestPlugin({
-      //   fileName: "../../../asset-manifest.json",
-      //   publicPath: PUBLIC_PATH,
-      //   writeToFileEmit: true
-      // })
+      new ManifestPlugin({
+        map(asset) {
+          return Object.assign(asset, {
+            path: asset.path.replace(config.outputPublicPath, PUBLIC_PATH),
+          });
+        },
+        fileName: "../../../asset-manifest.json",
+        writeToFileEmit: true
+      })
     ].concat(config.compressJSPlugins),
 
     devServer: {
