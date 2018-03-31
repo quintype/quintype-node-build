@@ -3,6 +3,7 @@ const process = require("process");
 const path = require("path");
 const fs = require("fs");
 
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const ExtractTextPlugin = require("extract-text-webpack-plugin");
 // const ManifestPlugin = require("webpack-manifest-plugin");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
@@ -38,8 +39,8 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
         }
       : {
           outputFileName: suffix => `[name].${suffix}`,
-          sassLoader: [{loader: "style-loader"}, {loader: "css-loader", options: {sourceMap: true}}, {loader: "sass-loader", options: {sourceMap: true}}],
-          cssModuleLoader: [{loader: "style-loader"}, {loader: "css-loader", options: {sourceMap: true, modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]"}}],
+          sassLoader: [MiniCssExtractPlugin.loader, {loader: "css-loader", options: {sourceMap: true}}, {loader: "sass-loader", options: {sourceMap: true}}],
+          cssModuleLoader: [MiniCssExtractPlugin.loader, {loader: "css-loader", options: {sourceMap: true, modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]"}}],
           cssFile: `[name].css`,
           compressJSPlugins: opts.compressJSPlugins || [new webpack.NamedModulesPlugin()],
           outputPublicPath: "http://localhost:8080" + PUBLIC_PATH,
@@ -81,6 +82,10 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
     },
     plugins: [
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
+      new MiniCssExtractPlugin({
+        filename: "[name].css",
+        chunkFilename: "[id].css"
+      })
       // new ExtractTextPlugin({ filename: config.cssFile, allChunks: true }),
       // new ManifestPlugin({
       //   fileName: "../../../asset-manifest.json",
