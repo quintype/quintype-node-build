@@ -3,8 +3,8 @@ const process = require("process");
 const path = require("path");
 const fs = require("fs");
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const ManifestPlugin = require("webpack-manifest-plugin");
+// const ExtractTextPlugin = require("extract-text-webpack-plugin");
+// const ManifestPlugin = require("webpack-manifest-plugin");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 
 exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, opts = {}) {
@@ -25,12 +25,12 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
     process.env.NODE_ENV == "production"
       ? {
           outputFileName: suffix => `[name]-[hash:20].${suffix}`,
-          sassLoader: ExtractTextPlugin.extract(
-            "css-loader?minimize=true!sass-loader"
-          ),
-          cssModuleLoader: ExtractTextPlugin.extract(
-            "css-loader?minimize=true&modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]",
-          ),
+          // sassLoader: ExtractTextPlugin.extract(
+          //   "css-loader?minimize=true!sass-loader"
+          // ),
+          // cssModuleLoader: ExtractTextPlugin.extract(
+          //   "css-loader?minimize=true&modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]",
+          // ),
           cssFile: `[name]-[contenthash:20].css`,
           compressJSPlugins: opts.compressJSPlugins || [new UglifyJSPlugin()],
           outputPublicPath: PUBLIC_PATH,
@@ -81,12 +81,12 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
     },
     plugins: [
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
-      new ExtractTextPlugin({ filename: config.cssFile, allChunks: true }),
-      new ManifestPlugin({
-        fileName: "../../../asset-manifest.json",
-        publicPath: PUBLIC_PATH,
-        writeToFileEmit: true
-      })
+      // new ExtractTextPlugin({ filename: config.cssFile, allChunks: true }),
+      // new ManifestPlugin({
+      //   fileName: "../../../asset-manifest.json",
+      //   publicPath: PUBLIC_PATH,
+      //   writeToFileEmit: true
+      // })
     ].concat(config.compressJSPlugins),
 
     devServer: {
