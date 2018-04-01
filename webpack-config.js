@@ -17,7 +17,10 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
     options: {
       presets: ["es2015-tree-shaking", "react"],
       plugins: [
-        ["react-css-modules", {webpackHotModuleReloading: process.env.NODE_ENV != "production", generateScopedName: "[name]__[local]__[hash:base64:5]"}]
+        ["react-css-modules", {
+          webpackHotModuleReloading: process.env.NODE_ENV != "production",
+          generateScopedName: "[name]__[local]__[chunkhash]",
+        }]
       ],
     }
   };
@@ -40,7 +43,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
       : {
           outputFileName: suffix => `[name].${suffix}`,
           sassLoader: [MiniCssExtractPlugin.loader, {loader: "css-loader", options: {sourceMap: true}}, {loader: "sass-loader", options: {sourceMap: true}}],
-          cssModuleLoader: [MiniCssExtractPlugin.loader, {loader: "css-loader", options: {sourceMap: true, modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]"}}],
+          cssModuleLoader: [MiniCssExtractPlugin.loader, {loader: "css-loader", options: {sourceMap: true, modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[chunkhash]"}}],
           cssFile: `[name].css`,
           compressJSPlugins: opts.compressJSPlugins || [new webpack.NamedModulesPlugin()],
           outputPublicPath: "http://localhost:8080" + PUBLIC_PATH,
