@@ -20,7 +20,8 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
         ["react-css-modules", {
           webpackHotModuleReloading: process.env.NODE_ENV != "production",
           generateScopedName: "[name]__[local]__[chunkhash]",
-        }]
+        }],
+        "syntax-dynamic-import",
       ],
     }
   };
@@ -87,7 +88,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new MiniCssExtractPlugin({
         filename: "[name].css",
-        chunkFilename: "[id].css"
+        chunkFilename: "[name].css"
       }),
       // new ExtractTextPlugin({ filename: config.cssFile, allChunks: true }),
       new ManifestPlugin({
