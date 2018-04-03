@@ -3,6 +3,7 @@ const process = require("process");
 const path = require("path");
 const fs = require("fs");
 
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 
@@ -36,7 +37,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
             loader: "css-loader", options: {modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]"}
           }],
           cssFile: `[name]-[contenthash:20].css`,
-          compressJSPlugins: opts.compressJSPlugins || [],
+          compressCSSPlugins: [new OptimizeCssAssetsPlugin()],
           outputPublicPath: PUBLIC_PATH,
           sourceMapType: 'source-map'
         }
@@ -45,7 +46,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
           sassLoader: [{loader: "style-loader"}, {loader: "css-loader", options: {sourceMap: true}}, {loader: "sass-loader", options: {sourceMap: true}}],
           cssModuleLoader: [{loader: "style-loader"}, {loader: "css-loader", options: {sourceMap: true, modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]"}}],
           cssFile: `[name].css`,
-          compressJSPlugins: opts.compressJSPlugins || [new webpack.NamedModulesPlugin()],
+          compressCSSPlugins: [],
           outputPublicPath: "http://localhost:8080" + PUBLIC_PATH,
           sourceMapType: 'eval-source-map'
         };
@@ -61,6 +62,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
 
   return {
     entry: entryFiles,
+    mode: process.env.NODE_ENV == 'production' ? 'production' : 'development',
     output: {
       path: OUTPUT_DIRECTORY,
       filename: config.outputFileName("js"),
@@ -96,7 +98,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
         publicPath: PUBLIC_PATH,
         writeToFileEmit: true
       })
-    ].concat(config.compressJSPlugins),
+    ].concat(config.compressCSSPlugins),
 
     devServer: {
       headers: { "Access-Control-Allow-Origin": "*" }
