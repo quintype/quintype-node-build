@@ -5,7 +5,6 @@ const fs = require("fs");
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
-const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 
 exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, opts = {}) {
   const PUBLIC_PATH = `/${publisherName}/assets/`;
@@ -37,7 +36,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
             loader: "css-loader", options: {modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]"}
           }],
           cssFile: `[name]-[contenthash:20].css`,
-          compressJSPlugins: opts.compressJSPlugins || [new UglifyJSPlugin()],
+          compressJSPlugins: opts.compressJSPlugins || [],
           outputPublicPath: PUBLIC_PATH,
           sourceMapType: 'source-map'
         }
