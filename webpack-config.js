@@ -85,10 +85,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
     },
     plugins: [
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
-      new MiniCssExtractPlugin({
-        filename: "[name].css",
-        chunkFilename: "[id].css"
-      }),
+      new MiniCssExtractPlugin({filename: config.cssFile}),
       new ManifestPlugin({
         map(asset) {
           return Object.assign(asset, {

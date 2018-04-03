@@ -1,6 +1,6 @@
 {
   "name": "@quintype/build",
-  "version": "1.11.0-webpack4-rc5",
+  "version": "1.11.0-webpack4-rc6",
   "description": "Library that defines build process for node apps",
   "main": "index.js",
   "scripts": {
