@@ -3,7 +3,7 @@ const process = require("process");
 const path = require("path");
 const fs = require("fs");
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 
@@ -16,21 +16,26 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
     options: {
       presets: ["es2015-tree-shaking", "react"],
       plugins: [
-        ["react-css-modules", {webpackHotModuleReloading: process.env.NODE_ENV != "production", generateScopedName: "[name]__[local]__[hash:base64:5]"}]
+        ["react-css-modules", {
+          webpackHotModuleReloading: process.env.NODE_ENV != "production", 
+          generateScopedName: "[name]__[local]__[hash:base64:5]"
+        }]
       ],
     }
-  };
+  };  
 
   const config =
     process.env.NODE_ENV == "production"
       ? {
           outputFileName: suffix => `[name]-[hash:20].${suffix}`,
-          sassLoader: ExtractTextPlugin.extract(
-            "css-loader?minimize=true!sass-loader"
-          ),
-          cssModuleLoader: ExtractTextPlugin.extract(
-            "css-loader?minimize=true&modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]",
-          ),
+          sassLoader: [MiniCssExtractPlugin.loader, {
+            loader: "css-loader", 
+          }, {
+            loader: "sass-loader",             
+          }],
+          cssModuleLoader: [MiniCssExtractPlugin.loader, {
+            loader: "css-loader", options: {modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]"}
+          }],
           cssFile: `[name]-[contenthash:20].css`,
           compressJSPlugins: opts.compressJSPlugins || [new UglifyJSPlugin()],
           outputPublicPath: PUBLIC_PATH,
@@ -81,8 +86,16 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
     },
     plugins: [
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
-      new ExtractTextPlugin({ filename: config.cssFile, allChunks: true }),
+      new MiniCssExtractPlugin({
+        filename: "[name].css",
+        chunkFilename: "[id].css"
+      }),
       new ManifestPlugin({
+        map(asset) {
+          return Object.assign(asset, {
+            path: asset.path.replace(config.outputPublicPath, PUBLIC_PATH),
+          });
+        },
         fileName: "../../../asset-manifest.json",
         publicPath: PUBLIC_PATH,
         writeToFileEmit: true
