@@ -1,6 +1,6 @@
 {
   "name": "@quintype/build",
-  "version": "1.11.0-webpack4-rc3",
+  "version": "1.11.0-webpack4-rc4",
   "description": "Library that defines build process for node apps",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "mini-css-extract-plugin": "^0.4.0",
     "path": "^0.12.7",
     "process": "^0.11.10",
-    "uglifyjs-webpack-plugin": "^1.1.2",
+    "uglifyjs-webpack-plugin": "^1.2.4",
     "webpack": "^4.4.1",
     "webpack-manifest-plugin": "^2.0.0-rc.2"
   },
