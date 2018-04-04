@@ -9,7 +9,7 @@ if [ ! -f .babelrc ]; then
   cp ./node_modules/@quintype/build/default-babel-rc .babelrc
 fi
 
-./node_modules/.bin/babel app -d app --presets react --plugins transform-es2015-modules-commonjs,quintype-assets
+./node_modules/.bin/babel app -d app --presets react --plugins transform-es2015-modules-commonjs,dynamic-import-node,quintype-assets
 
 rm -rf node-modules
 npm install --no-optional --production
