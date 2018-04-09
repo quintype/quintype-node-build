@@ -47,7 +47,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
           cssModuleLoader: [
             {loader: "style-loader"}, 
             {loader: "css-loader", options: {sourceMap: true, modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]"}},
-            {loader: "postcss-loader", options: {sourceMap: true, plugins: ["precss", "autoprefixer"]}}
+            {loader: "postcss-loader"}
           ],
           cssFile: `[name].css`,
           compressCSSPlugins: [],
