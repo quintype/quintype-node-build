@@ -35,6 +35,16 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
           }],
           cssModuleLoader: [MiniCssExtractPlugin.loader, {
             loader: "css-loader", options: {modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]"}
+          },{
+            loader: "postcss-loader", 
+            options: {
+              ident: "postcss",
+              sourceMap: true,
+              plugins: (loader) => [
+                require("precss")(),
+                require("autoprefixer")
+              ]
+            }
           }],
           cssFile: `[name]-[contenthash:20].css`,
           compressCSSPlugins: [new OptimizeCssAssetsPlugin()],
@@ -51,6 +61,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
               loader: "postcss-loader", 
               options: {
                 ident: "postcss",
+                sourceMap: true,
                 plugins: (loader) => [
                   require("precss")(),
                   require("autoprefixer")
