@@ -1,6 +1,6 @@
 {
   "name": "@quintype/build",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Library that defines build process for node apps",
   "main": "index.js",
   "scripts": {
