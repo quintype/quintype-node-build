@@ -42,7 +42,8 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
               sourceMap: true,
               plugins: (loader) => [
                 require("precss")(),
-                require("autoprefixer")
+                require("autoprefixer"),
+                require("cssnano")({zindex: false})
               ]
             }
           }],
