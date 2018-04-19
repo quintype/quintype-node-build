@@ -47,7 +47,9 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
             }
           }],
           cssFile: `[name]-[contenthash:20].css`,
-          compressCSSPlugins: [new OptimizeCssAssetsPlugin()],
+          compressCSSPlugins: [new OptimizeCssAssetsPlugin({
+            cssProcessorOptions: { safe: true }
+          })],
           outputPublicPath: PUBLIC_PATH,
           sourceMapType: 'source-map'
         }
