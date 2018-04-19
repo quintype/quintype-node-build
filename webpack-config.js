@@ -34,7 +34,9 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
             loader: "sass-loader",             
           }],
           cssModuleLoader: [MiniCssExtractPlugin.loader, {
-            loader: "css-loader", options: {modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]"}
+            loader: "css-loader", options: {modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]", minimize: {
+              zindex: false
+            }}
           },{
             loader: "postcss-loader", 
             options: {
@@ -42,8 +44,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
               sourceMap: true,
               plugins: (loader) => [
                 require("precss")(),
-                require("autoprefixer"),
-                require("cssnano")({zindex: false})
+                require("autoprefixer")
               ]
             }
           }],
