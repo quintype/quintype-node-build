@@ -34,8 +34,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
             loader: "sass-loader",             
           }],
           cssModuleLoader: [MiniCssExtractPlugin.loader, {
-            loader: "css-loader", options: {modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]", 
-            minimize: true || { zindex: false}}
+            loader: "css-loader", options: {modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]"}
           },{
             loader: "postcss-loader", 
             options: {
@@ -48,7 +47,9 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
             }
           }],
           cssFile: `[name]-[contenthash:20].css`,
-          compressCSSPlugins: [new OptimizeCssAssetsPlugin()],
+          compressCSSPlugins: [new OptimizeCssAssetsPlugin({
+            cssProcessorOptions: { zindex: false }
+          })],
           outputPublicPath: PUBLIC_PATH,
           sourceMapType: 'source-map'
         }
