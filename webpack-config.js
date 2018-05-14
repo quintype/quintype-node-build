@@ -101,6 +101,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
         { test: /\.jsx?$/, include: /node_modules\/@quintype\/components\/store/, use: BABEL_PRESET },
         { test: /\.(sass|scss)$/, use: config.sassLoader },
         { test: /\.module.css$/, use: config.cssModuleLoader },
+        { test: /\.m.css$/, use: config.cssModuleLoader },
         {
           test: /\.(jpe?g|gif|png|svg|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
           loader: "file-loader",
