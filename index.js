@@ -8,7 +8,8 @@ module.exports = function startDevMode(opts) {
       ["react-css-modules", {
         removeImport: true,
         generateScopedName: "[name]__[local]__[hash:base64:5]"
-      }]
+      }],
+      "transform-class-properties"
     ]
   }, opts.babelOpts));
 }
