@@ -17,26 +17,26 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
       presets: ["es2015-tree-shaking", "react"],
       plugins: [
         ["react-css-modules", {
-          webpackHotModuleReloading: process.env.NODE_ENV != "production", 
+          webpackHotModuleReloading: process.env.NODE_ENV != "production",
           generateScopedName: "[name]__[local]__[hash:base64:5]"
         }]
       ],
     }
-  };  
+  };
 
   const config =
     process.env.NODE_ENV == "production"
       ? {
           outputFileName: suffix => `[name]-[hash:20].${suffix}`,
           sassLoader: [MiniCssExtractPlugin.loader, {
-            loader: "css-loader", 
+            loader: "css-loader",
           }, {
-            loader: "sass-loader",             
+            loader: "sass-loader",
           }],
           cssModuleLoader: [MiniCssExtractPlugin.loader, {
             loader: "css-loader", options: {modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]"}
           },{
-            loader: "postcss-loader", 
+            loader: "postcss-loader",
             options: {
               ident: "postcss",
               sourceMap: true,
@@ -57,10 +57,10 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
           outputFileName: suffix => `[name].${suffix}`,
           sassLoader: [{loader: "style-loader"}, {loader: "css-loader", options: {sourceMap: true}}, {loader: "sass-loader", options: {sourceMap: true}}],
           cssModuleLoader: [
-            {loader: "style-loader"}, 
+            {loader: "style-loader"},
             {loader: "css-loader", options: {sourceMap: true, modules: true, importLoaders: 1, localIdentName: "[name]__[local]__[hash:base64:5]"}},
             {
-              loader: "postcss-loader", 
+              loader: "postcss-loader",
               options: {
                 ident: "postcss",
                 sourceMap: true,
@@ -77,10 +77,10 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
           sourceMapType: 'eval-source-map'
         };
 
-  const entryFiles = {
+  const entryFiles = Object.assign({
     app: "./app/client/app.js",
     serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs"
-  };
+  }, opts.entryFiles);
 
   if(fs.existsSync("./app/client/polyfill.js")) {
     entryFiles["polyfill"] = "./app/client/polyfill.js";
