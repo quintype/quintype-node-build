@@ -43,7 +43,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
         }, { loader: "sass-loader" }, {
           loader: "sass-resources-loader",
           options: {
-            resources: "./app/assets/stylesheets/base/tools/functions.m.css"
+            resources: "./app/assets/stylesheets/base/tools/mixins.scss"
           }
         }],
         cssFile: `[name]-[contenthash:20].css`,
@@ -71,7 +71,7 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
           }, { loader: "sass-loader" }, {
             loader: "sass-resources-loader",
             options: {
-              resources: "./app/assets/stylesheets/base/tools/functions.m.css"
+              resources: "./app/assets/stylesheets/base/tools/mixins.scss"
             }
           }
         ],
@@ -103,7 +103,9 @@ exports.webpackConfig = function webpackConfig(publisherName, currentDirectory, 
         { test: /\.jsx?$/, exclude: /node_modules/, use: BABEL_PRESET },
         { test: /\.jsx?$/, include: /node_modules\/@quintype\/framework/, use: BABEL_PRESET },
         { test: /\.jsx?$/, include: /node_modules\/@quintype\/components\/store/, use: BABEL_PRESET },
+        { test: /\.(sass|scss)$/, use: config.cssModuleLoader },
         { test: /\.module.css$/, use: config.cssModuleLoader },
+        { test: /\.m.scss$/, use: config.cssModuleLoader },
         { test: /\.m.css$/, use: config.cssModuleLoader },
         {
           test: /\.(jpe?g|gif|png|svg|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
