@@ -1,6 +1,5 @@
 const webpack = require("webpack");
 const process = require("process");
-const path = require("path");
 const fs = require("fs");
 
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
@@ -23,7 +22,7 @@ exports.webpackConfig = function webpackConfig(
         [
           "react-css-modules",
           {
-            webpackHotModuleReloading: process.env.NODE_ENV != "production",
+            webpackHotModuleReloading: process.env.NODE_ENV !== "production",
             generateScopedName: "[name]__[local]__[hash:base64:5]"
           }
         ]
@@ -32,7 +31,7 @@ exports.webpackConfig = function webpackConfig(
   };
 
   const config =
-    process.env.NODE_ENV == "production"
+    process.env.NODE_ENV === "production"
       ? {
           outputFileName: suffix => `[name]-[hash:20].${suffix}`,
           sassLoader: [
@@ -125,7 +124,7 @@ exports.webpackConfig = function webpackConfig(
 
   return {
     entry: entryFiles,
-    mode: process.env.NODE_ENV == "production" ? "production" : "development",
+    mode: process.env.NODE_ENV === "production" ? "production" : "development",
     output: {
       path: OUTPUT_DIRECTORY,
       filename: config.outputFileName("js"),
