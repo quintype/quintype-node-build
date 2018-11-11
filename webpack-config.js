@@ -18,15 +18,7 @@ exports.webpackConfig = function webpackConfig(
     loader: "babel-loader",
     options: {
       presets: ["es2015-tree-shaking", "react"],
-      plugins: [
-        [
-          "react-css-modules",
-          {
-            webpackHotModuleReloading: process.env.NODE_ENV !== "production",
-            generateScopedName: "[name]__[local]__[hash:base64:5]"
-          }
-        ]
-      ]
+      plugins: []
     }
   };
 
@@ -58,10 +50,14 @@ exports.webpackConfig = function webpackConfig(
               options: {
                 ident: "postcss",
                 sourceMap: true,
-                plugins: loader => [
-                  require("precss")(),
-                  require("autoprefixer")
-                ]
+                plugins: loader => [require("autoprefixer")]
+              }
+            },
+            { loader: "sass-loader", options: { sourceMap: true } },
+            {
+              loader: "sass-resources-loader",
+              options: {
+                resources: ["app/assets/stylesheets/base/base.scss"]
               }
             }
           ],
@@ -97,10 +93,14 @@ exports.webpackConfig = function webpackConfig(
               options: {
                 ident: "postcss",
                 sourceMap: true,
-                plugins: loader => [
-                  require("precss")(),
-                  require("autoprefixer")
-                ]
+                plugins: loader => [require("autoprefixer")]
+              }
+            },
+            { loader: "sass-loader", options: { sourceMap: true } },
+            {
+              loader: "sass-resources-loader",
+              options: {
+                resources: ["app/assets/stylesheets/base/base.scss"]
               }
             }
           ],
