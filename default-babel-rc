@@ -1,9 +1,17 @@
 {
+  "env": {
+    "node": {
+      "plugins": [
+        [
+          "babel-plugin-transform-require-ignore",
+          {
+            "extensions": [".css", ".scss"]
+          }
+        ]
+      ]
+    }
+  },
   plugins: [
-    ["react-css-modules", {
-      removeImport: true,
-      generateScopedName: "[name]__[local]__[hash:base64:5]"
-    }],
     "transform-class-properties"
   ]
 }

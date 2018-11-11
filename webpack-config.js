@@ -41,7 +41,7 @@ exports.webpackConfig = function webpackConfig(
               loader: "css-loader",
               options: {
                 modules: true,
-                importLoaders: 1,
+                importLoaders: 2,
                 localIdentName: "[name]__[local]__[hash:base64:5]"
               }
             },
@@ -84,7 +84,7 @@ exports.webpackConfig = function webpackConfig(
               options: {
                 sourceMap: true,
                 modules: true,
-                importLoaders: 1,
+                importLoaders: 2,
                 localIdentName: "[name]__[local]__[hash:base64:5]"
               }
             },
