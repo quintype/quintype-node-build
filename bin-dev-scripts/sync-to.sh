@@ -7,4 +7,4 @@ if [ -z $PATH_TO_APP ] ; then
   exit 1
 fi
 
-rsync -r --exclude="node_modules" . "$PATH_TO_APP/node_modules/@quintype/build/"
+rsync -r --exclude="node_modules" --exclude=".*/" . "$PATH_TO_APP/node_modules/@quintype/build/"
