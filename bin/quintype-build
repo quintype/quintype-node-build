@@ -2,15 +2,13 @@
 
 export NODE_ENV=production
 
-npm run compile
+SCRIPTDIR=$(cd "$(dirname "$(readlink -f $0)")"; echo "$(pwd)")
+
+BABEL_TARGET="browser" "$SCRIPTDIR/quintype-app-build"
+# npm run compile
 rm -rf app/client # Removing app/client so that no one accidently requires it
 
-if [ ! -f .babelrc ]; then
-  cp ./node_modules/@quintype/build/default-babel-rc .babelrc
-fi
+BABEL_TARGET="server" "$SCRIPTDIR/quintype-app-build"
 
-./node_modules/.bin/babel app -d app --presets react --plugins transform-es2015-modules-commonjs,dynamic-import-node,quintype-assets
-
-rm -rf node-modules
-npm install --no-optional --production
+npm ci
 rm -rf /app/.git /app/.npm

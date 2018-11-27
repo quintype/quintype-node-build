@@ -2,7 +2,7 @@
   "name": "@quintype/build",
   "version": "2.8.0",
   "description": "Library that defines build process for node apps",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "lint:js:ci": "npx eslint $(git diff --pretty='' --name-only origin/master..HEAD -- '*.js') ./index.js",
     "prepublishOnly": "npm install && git diff --quiet && git tag -m '' -a v$(cat package.json | grep version | head -n1  | cut -d \\\" -f 4) && git push --follow-tags origin",
@@ -13,30 +13,35 @@
     "webpack",
     "quintype"
   ],
+  "bin": {
+    "quintype-build": "./bin/quintype-build",
+    "quintype-app-build": "./bin/quintype-app-build"
+  },
   "author": "Quintype Developers <dev-core@quintype.com>",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-dynamic-import-node": "^2.2.0",
     "babel-plugin-quintype-assets": "^1.0.2",
-    "babel-plugin-react-css-modules": "^3.3.3",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-register": "^6.26.0",
+    "babel-plugin-react-css-modules": "^3.4.2",
     "mini-css-extract-plugin": "^0.4.0",
     "optimize-css-assets-webpack-plugin": "^4.0.0",
     "path": "^0.12.7",
     "process": "^0.11.10",
     "webpack": "^4.4.1",
-    "webpack-manifest-plugin": "^2.0.0-rc.2"
+    "webpack-manifest-plugin": "^2.0.0-rc.2",
+    "yargs": "^12.0.5"
   },
   "peerDependencies": {
+    "babel-jest": "^23.6.0",
     "autoprefixer": "^8.2.0",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-dynamic-import-node": "^1.2.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
-    "babel-preset-es2015-tree-shaking": "^1.0.1",
-    "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
     "node-sass": "^4.7.2",
@@ -45,9 +50,6 @@
     "sass-loader": "^6.0.7",
     "style-loader": "^0.19.0",
     "webpack": "^4.4.1"
-  },
-  "bin": {
-    "quintype-build": "./bin/quintype-build"
   },
   "devDependencies": {
     "eslint": "^5.8.0",
