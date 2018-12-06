@@ -9,16 +9,9 @@ module.exports = function startDevMode(opts) {
         plugins: [
           "transform-es2015-modules-commonjs",
           "dynamic-import-node",
-          "babel-plugin-transform-assets-import-to-string",
-          // "quintype-assets",
-          // [
-          //   "react-css-modules",
-          //   {
-          //     removeImport: true,
-          //     generateScopedName: "[name]__[local]__[hash:base64:5]"
-          //   }
-          // ],
-          "transform-class-properties"
+          "transform-assets-import-to-string",
+          "transform-class-properties",
+          "transform-object-rest-spread"
         ]
       },
       opts.babelOpts
