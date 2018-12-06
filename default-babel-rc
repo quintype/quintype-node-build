@@ -1,17 +1,7 @@
 {
-  "env": {
-    "node": {
-      "plugins": [
-        [
-          "babel-plugin-transform-require-ignore",
-          {
-            "extensions": [".css", ".scss"]
-          }
-        ]
-      ]
-    }
-  },
   plugins: [
-    "transform-class-properties"
+    "transform-class-properties",
+    "css-modules-transform",
+    "transform-object-rest-spread"
   ]
 }
