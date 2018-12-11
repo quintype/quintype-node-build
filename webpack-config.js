@@ -100,7 +100,7 @@ exports.webpackConfig = function webpackConfig(
             {
               loader: "sass-resources-loader",
               options: {
-                resources: ["app/assets/stylesheets/base/base.scss"]
+                resources: ["app/assets/stylesheets/base/resources.scss"]
               }
             }
           ],
