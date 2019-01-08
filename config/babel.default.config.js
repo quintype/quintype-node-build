@@ -39,13 +39,14 @@ function getNodeConfig() {
     )
   ];
   const dynamicImport = ["babel-plugin-dynamic-import-node"];
-  const quintypeAssets = ["babel-plugin-quintype-assets"];
+  const assetsImport = [
+    "babel-plugin-transform-assets-import-to-string",
+    {
+      extensions: [".gif", ".jpeg", ".jpg", ".png", ".svg", ".css", ".scss"]
+    }
+  ];
 
-  const plugins = commonPlugins.concat([
-    reactCss,
-    dynamicImport,
-    quintypeAssets
-  ]);
+  const plugins = commonPlugins.concat([reactCss, dynamicImport, assetsImport]);
 
   const envPreset = ["@babel/preset-env", { targets: { node: "current" } }];
 
@@ -62,8 +63,9 @@ function getBroweserConfig({ env }) {
       reactCssPluginOptions
     )
   ];
+  const dynamicImport = ["@babel/plugin-syntax-dynamic-import"];
 
-  const plugins = commonPlugins.concat([reactCss]);
+  const plugins = commonPlugins.concat([reactCss, dynamicImport]);
 
   const envPreset = ["@babel/preset-env", { modules: false }];
 

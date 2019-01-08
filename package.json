@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "lint:js:ci": "npx eslint $(git diff --pretty='' --name-only origin/master..HEAD -- '*.js') ./index.js",
-    "prepublishOnly": "npm install && git diff --quiet && git tag -m '' -a v$(cat package.json | grep version | head -n1  | cut -d \\\" -f 4) && git push --follow-tags origin",
+    "prepublishOnly": "./bin-dev-scripts/standard-version-release.sh",
     "sync-files-to": "npx onchange --verbose --wait --await-write-finish '**/*' -- ./bin-dev-scripts/sync-to.sh "
   },
   "keywords": [
@@ -24,13 +24,14 @@
     "@babel/core": "^7.1.6",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
     "babel-loader": "^8.0.4",
     "babel-plugin-dynamic-import-node": "^2.2.0",
-    "babel-plugin-quintype-assets": "^1.0.2",
     "babel-plugin-react-css-modules": "^3.4.2",
+    "babel-plugin-transform-assets-import-to-string": "^1.2.0",
     "mini-css-extract-plugin": "^0.4.0",
     "optimize-css-assets-webpack-plugin": "^4.0.0",
     "path": "^0.12.7",

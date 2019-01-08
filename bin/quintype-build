@@ -8,7 +8,7 @@ BABEL_TARGET="browser" "$SCRIPTDIR/quintype-app-build"
 # npm run compile
 rm -rf app/client # Removing app/client so that no one accidently requires it
 
-BABEL_TARGET="server" "$SCRIPTDIR/quintype-app-build"
+BABEL_TARGET="node" "$SCRIPTDIR/quintype-app-build"
 
-npm ci
+npm install
 rm -rf /app/.git /app/.npm
