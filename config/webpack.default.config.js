@@ -107,7 +107,6 @@ function getDevelopmentConfig(opts) {
 function getConfig(opts) {
   const PUBLIC_PATH = `/${opts.publisherName}/assets/`;
   const OUTPUT_DIRECTORY = path.resolve(`./public/${PUBLIC_PATH}`);
-  console.log(OUTPUT_DIRECTORY);
   const config =
     opts.env === "production"
       ? getProductionConfig(opts)

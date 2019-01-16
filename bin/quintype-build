@@ -10,5 +10,7 @@ rm -rf app/client # Removing app/client so that no one accidently requires it
 
 BABEL_TARGET="node" "$SCRIPTDIR/quintype-app-build"
 
-npm ci
+rm -rf node-modules
+npm install --no-optional --production
+
 rm -rf /app/.git /app/.npm

@@ -22,6 +22,4 @@ const finalConfig = overrides.modifyWebpackConfig
   ? overrides.modifyWebpackConfig({ defaultConfig, env })
   : defaultConfig;
 
-console.log(finalConfig);
-
 module.exports = finalConfig;
