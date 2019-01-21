@@ -15,5 +15,5 @@ if [ "$BABEL_TARGET" = "node" ] ; then
 fi
 
 if [ "$BABEL_TARGET" = "browser" ] ; then
-  npx --no-install webpack
+  npx --no-install webpack --config "$SCRIPTDIR/../config/webpack.js"
 fi
