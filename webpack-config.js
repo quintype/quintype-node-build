@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const process = require("process");
 const fs = require("fs");
+const path = require("path");
 
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -17,16 +18,10 @@ exports.webpackConfig = function webpackConfig(
   const BABEL_PRESET = {
     loader: "babel-loader",
     options: {
-      presets: ["es2015-tree-shaking", "react"],
-      plugins: [
-        [
-          "react-css-modules",
-          {
-            webpackHotModuleReloading: process.env.NODE_ENV !== "production",
-            generateScopedName: "[name]__[local]__[hash:base64:5]"
-          }
-        ]
-      ]
+      // this is to ensure any existing babelrc configs in any file relative paths are ignored
+      babelrc: false,
+      // this path needs to be relative to this file and not PWD
+      configFile: path.resolve(__dirname, "./config/babel.js")
     }
   };
 

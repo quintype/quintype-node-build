@@ -1,0 +1,19 @@
+#!/bin/sh -e
+
+set -o nounset -o errexit -o pipefail
+
+if [ "$NODE_ENV" != "production" ] ; then
+  echo "this script should only be used in production mode; and preferably inside the docker container"
+  exit 1;
+fi
+
+SCRIPTDIR=$(cd "$(dirname "$(readlink -f $0)")"; echo "$(pwd)")
+
+if [ "$BABEL_TARGET" = "node" ] ; then
+  echo "$SCRIPTDIR/../config/babel.js"
+  npx --no-install babel --config-file "$SCRIPTDIR/../config/babel.js" app -d app
+fi
+
+if [ "$BABEL_TARGET" = "browser" ] ; then
+  npx --no-install webpack --config "$SCRIPTDIR/../config/webpack.js"
+fi
