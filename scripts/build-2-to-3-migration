@@ -6,6 +6,7 @@ PUBLISHER_NAME=$(grep webpackConfig\( webpack.config.js  | cut -d \" -f 2)
 
 sed -i "" "s/  \"name\": \".*\"/  \"name\": \"$PUBLISHER_NAME\"/; s/: \"webpack/: \"BABEL_TARGET=browser webpack/; s/npx webpack/BABEL_TARGET=browser webpack/; s/node start/BABEL_TARGET=node node start/" package.json
 sed -i "" "s/npx webpack/BABEL_TARGET=browser npx webpack/" run-prodish
+sed -i "" 's/FROM node:8.*-alpine/FROM node:10.15-alpine/g' Dockerfile
 
 cat > webpack.config.js <<EOF
 module.exports = require("@quintype/build/config/webpack");
@@ -19,4 +20,4 @@ npm i -D @quintype/build@^3.2 babel-loader@^8
 npm uninstall babel-cli babel-core babel-loader babel-plugin-dynamic-import-node babel-plugin-transform-assets-import-to-string babel-preset-env babel-preset-es2015 babel-preset-es2015-tree-shaking babel-preset-react babel-loader duplicate-package-checker-webpack-plugin webpack-common-shake autoprefixer css-loader file-loader node-sass postcss-loader precss process sass-loader style-loader webpack webpack-manifest-plugin yargs webpack
 npm dedupe
 
-git add package.json package-lock.json webpack.config.js quintype-build.config.js run-prodish
+git add package.json package-lock.json webpack.config.js quintype-build.config.js run-prodish Dockerfile
