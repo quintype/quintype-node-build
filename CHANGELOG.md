@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.7.0"></a>
+# [3.7.0](https://github.com/quintype/quintype-node-build/compare/v3.6.0...v3.7.0) (2019-01-31)
+
+
+### Bug Fixes
+
+* PostCSS loaded correctly ([f6a2c0a](https://github.com/quintype/quintype-node-build/commit/f6a2c0a))
+
+
+### Features
+
+* **Compile:** Simplify the compile process ([#14](https://github.com/quintype/quintype-node-build/issues/14)) ([c4ef125](https://github.com/quintype/quintype-node-build/commit/c4ef125))
+
+
+
 <a name="3.6.0"></a>
 # [3.6.0](https://github.com/quintype/quintype-node-build/compare/v3.5.1...v3.6.0) (2019-01-31)
 
