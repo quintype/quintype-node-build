@@ -2,13 +2,13 @@
 
 export NODE_ENV=production
 
-SCRIPTDIR=$(cd "$(dirname "$(readlink -f $0)")"; echo "$(pwd)")
+set -o nounset -o errexit -o pipefail
 
-BABEL_TARGET="browser" "$SCRIPTDIR/quintype-app-build"
-# npm run compile
+BABEL_TARGET=browser npm run compile
+
 rm -rf app/client # Removing app/client so that no one accidently requires it
 
-BABEL_TARGET="node" "$SCRIPTDIR/quintype-app-build"
+BABEL_TARGET=node npx --no-install -p @babel/cli -p @babel/core babel app -d app
 
 rm -rf node-modules
 npm install --no-optional --production

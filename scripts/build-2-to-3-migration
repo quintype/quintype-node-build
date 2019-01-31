@@ -12,6 +12,10 @@ cat > webpack.config.js <<EOF
 module.exports = require("@quintype/build/config/webpack");
 EOF
 
+cat > babel.config.js <<EOF
+module.exports = require("@quintype/build/config/babel");
+EOF
+
 cat > quintype-build.config.js <<EOF
 module.exports = require("@quintype/build/config/quintype-build");
 EOF
