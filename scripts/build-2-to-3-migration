@@ -15,7 +15,7 @@ cat > quintype-build.config.js <<EOF
 module.exports = require("@quintype/build/config/quintype-build");
 EOF
 
-npm i -D @quintype/build@v3.2.0-remove-peers.6 babel-loader@^8
+npm i -D @quintype/build@v3.2.0-remove-peers.8 babel-loader@^8
 npm uninstall babel-cli babel-core babel-loader babel-plugin-dynamic-import-node babel-plugin-transform-assets-import-to-string babel-preset-env babel-preset-es2015 babel-preset-es2015-tree-shaking babel-preset-react babel-loader duplicate-package-checker-webpack-plugin webpack-common-shake autoprefixer css-loader file-loader node-sass postcss-loader precss process sass-loader style-loader webpack webpack-manifest-plugin yargs webpack
 npm dedupe
 
