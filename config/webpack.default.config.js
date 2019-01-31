@@ -79,11 +79,7 @@ function getProductionConfig(opts) {
     sassConfig,
     cssModuleConfig,
     cssFile: `[name]-[contenthash:20].css`,
-    compressCSSPlugins: [
-      new OptimizeCssAssetsPlugin({
-        cssProcessorOptions: { safe: true }
-      })
-    ],
+    compressCSSPlugins: [new OptimizeCssAssetsPlugin()],
     outputPublicPath: PUBLIC_PATH,
     sourceMapType: "source-map"
   };
