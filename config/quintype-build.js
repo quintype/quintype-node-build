@@ -5,7 +5,7 @@ module.exports = {
   modifyWebpackConfig: function({ defaultConfig }) {
     return produce(defaultConfig, function(draft) {
       draft.node = { Buffer: false };
-      draft.entry.push({ font: "./app/client/font.js" });
+      draft.entry["font"] = "./app/client/font.js";
       if (process.env.ANALYZE_STATS === "true") {
         draft.plugins.push(
           new BundleAnalyzerPlugin({
