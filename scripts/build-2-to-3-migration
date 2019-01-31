@@ -18,7 +18,7 @@ EOF
 
 npm i -D @quintype/build@^3.2 babel-loader@^8
 npm uninstall babel-cli babel-core babel-loader babel-plugin-dynamic-import-node babel-plugin-transform-assets-import-to-string babel-preset-env babel-preset-es2015 babel-preset-es2015-tree-shaking babel-preset-react babel-loader duplicate-package-checker-webpack-plugin webpack-common-shake autoprefixer css-loader file-loader node-sass postcss-loader precss process sass-loader style-loader webpack webpack-manifest-plugin yargs webpack
-npm i --no-save postcss@^6
+npm i --no-save postcss@^6 cosmiconfig@^5
 npm dedupe
 
 git add package.json package-lock.json webpack.config.js quintype-build.config.js run-prodish Dockerfile
