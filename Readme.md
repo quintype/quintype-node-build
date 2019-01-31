@@ -68,7 +68,7 @@ Steps,
 - The file will export build options object. It can have functions like `modifyBabel`, `modifyWebpack` to allow the developer to customize the babel/webpack config.
 - The default config is prepared based on environment variables and then passed to `modifyBabel` for augmentation. The returned config is exported.
 
-### Migration to build@3.0.0
+### Migration to build@3
 
 - Remove all packages that have been moved to build or that are not required.
 ```sh
@@ -79,7 +79,7 @@ npm uninstall babel-cli babel-core babel-loader babel-plugin-dynamic-import-node
 ```sh
 npm install @quintype/build@latest
 or
-npm install @quintype/build@3.0.0
+npm install @quintype/build@^3
 ```
 
 - Update package.json to add the name of the publisher, this will be used for namespacing the assets folder.
