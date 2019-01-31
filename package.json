@@ -14,8 +14,7 @@
     "quintype"
   ],
   "bin": {
-    "quintype-build": "./bin/quintype-build",
-    "quintype-app-build": "./bin/quintype-app-build"
+    "quintype-build": "./bin/quintype-build"
   },
   "author": "Quintype Developers <dev-core@quintype.com>",
   "license": "ISC",
