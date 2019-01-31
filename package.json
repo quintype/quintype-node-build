@@ -1,6 +1,6 @@
 {
   "name": "@quintype/build",
-  "version": "3.2.0-remove-peers.4",
+  "version": "3.2.0-remove-peers.5",
   "description": "Library that defines build process for node apps",
   "main": "src/index.js",
   "scripts": {
