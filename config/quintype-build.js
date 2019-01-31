@@ -1,4 +1,4 @@
-const produce = require("immer");
+const { produce } = require("immer");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 module.exports = {
