@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.4.0"></a>
+# [3.4.0](https://github.com/quintype/quintype-node-build/compare/v3.3.0...v3.4.0) (2019-01-31)
+
+
+### Bug Fixes
+
+* **Webpack:** Locking to a good version of webpack ([0dcc4bd](https://github.com/quintype/quintype-node-build/commit/0dcc4bd))
+
+
+### Features
+
+* **Docker:** Script also upgrades docker to node-10.15 ([0fc93dc](https://github.com/quintype/quintype-node-build/commit/0fc93dc))
+
+
+
 <a name="3.3.0"></a>
 # [3.3.0](https://github.com/quintype/quintype-node-build/compare/v3.2.0...v3.3.0) (2019-01-31)
 
