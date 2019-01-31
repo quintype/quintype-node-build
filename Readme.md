@@ -70,6 +70,7 @@ Steps,
 
 ### Migration to build@3
 
-- Download the script `build-2-to-3-migration` from the [Scripts](./scripts) directory
-- Execute it: `./build-2-to-3-migration`
+- Run the following to execute the script: ```sh 
+sh <(curl https://raw.githubusercontent.com/quintype/quintype-node-build/master/scripts/build-2-to-3-migration)
+```
 - Verify Changes with `git diff --cached`.
