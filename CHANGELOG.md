@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.6.0"></a>
+# [3.6.0](https://github.com/quintype/quintype-node-build/compare/v3.5.1...v3.6.0) (2019-01-31)
+
+
+### Bug Fixes
+
+* Ensure postcss is installed in the app itself ([cf28a0f](https://github.com/quintype/quintype-node-build/commit/cf28a0f))
+
+
+### Features
+
+* **CSS:** Remove Safe mode from postcss ([980be55](https://github.com/quintype/quintype-node-build/commit/980be55))
+
+
+
 <a name="3.5.1"></a>
 ## [3.5.1](https://github.com/quintype/quintype-node-build/compare/v3.5.0...v3.5.1) (2019-01-31)
 
