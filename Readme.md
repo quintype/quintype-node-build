@@ -70,57 +70,6 @@ Steps,
 
 ### Migration to build@3
 
-- Remove all packages that have been moved to build or that are not required.
-```sh
-npm uninstall babel-cli babel-core babel-loader babel-plugin-dynamic-import-node babel-plugin-transform-assets-import-to-string babel-preset-env babel-preset-es2015 babel-preset-es2015-tree-shaking babel-preset-react babel-loader duplicate-package-checker-webpack-plugin webpack-common-shake
-```
-
-- Update build
-```sh
-npm install @quintype/build@latest
-or
-npm install @quintype/build@^3
-```
-
-- Update package.json to add the name of the publisher, this will be used for namespacing the assets folder.
-
-- Add quintype.config.js file with the following:
-```js
-const produce = require("immer");
-const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-
-module.exports = {
-  modifyWebpackConfig: function({ defaultConfig }) {
-    return produce(defaultConfig, function(draft) {
-      draft.node = { Buffer: false };
-      draft.entry.push({ font: "./app/client/font.js" });
-      if (process.env.ANALYZE_STATS === "true") {
-        draft.plugins.push(
-          new BundleAnalyzerPlugin({
-            generateStatsFile: true,
-            analyzerMode: "static",
-            statsFilename: "prod-stats.json"
-          })
-        );
-      }
-    });
-  }
-};
-```
-
-- add BABEL_TARGET as `node` or `browser` to the following npm scripts as required:
-```json
-"analyze-stats": "NODE_ENV=production ANALYZE_STATS=true BABEL_TARGET=browser npx webpack --profile --mode=production -p",
-"asset-server": "BABEL_TARGET=browser webpack-dev-server --hot",
-"compile": "BABEL_TARGET=browser webpack",
-"dev-server": "nodemon --watch app/server --watch app/isomorphic --exec 'BABEL_TARGET=node node start.js' --signal SIGHUP",
-```
-
-- add the webpack config file as `./node_modules/@quintype/build/config/webpack.js` to the following npm scripts
-```json
-"analyze-stats": "NODE_ENV=production ANALYZE_STATS=true BABEL_TARGET=browser npx webpack --config ./node_modules/@quintype/build/config/webpack.js --profile --mode=production -p",
-"asset-server": "BABEL_TARGET=browser webpack-dev-server --hot --config ./node_modules/@quintype/build/config/webpack.js",
-"compile": "BABEL_TARGET=browser webpack --config ./node_modules/@quintype/build/config/webpack.js",
-```
-
-- delete webpack.config.js
+- Download the script `build-2-to-3-migration` from the [Scripts](./scripts) directory
+- Execute it: `./build-2-to-3-migration`
+- Verify Changes with `git diff --cached`.
