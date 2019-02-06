@@ -5,7 +5,6 @@
       generateScopedName: "[name]__[local]__[hash:base64:5]"
     }],
     "transform-class-properties",
-    "transform-object-rest-spread",
-    "@babel/plugin-transform-runtime"
+    "transform-object-rest-spread"
   ]
 }

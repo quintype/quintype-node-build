@@ -39,6 +39,7 @@ function getNodeConfig() {
     )
   ];
   const dynamicImport = ["babel-plugin-dynamic-import-node"];
+
   const assetsImport = [
     "babel-plugin-transform-assets-import-to-string",
     {
@@ -46,7 +47,14 @@ function getNodeConfig() {
     }
   ];
 
-  const plugins = commonPlugins.concat([reactCss, dynamicImport, assetsImport]);
+  const runtimeGenerator = ["@babel/plugin-transform-runtime"];
+
+  const plugins = commonPlugins.concat([
+    reactCss,
+    dynamicImport,
+    assetsImport,
+    runtimeGenerator
+  ]);
 
   const envPreset = ["@babel/preset-env", { targets: { node: "current" } }];
 
