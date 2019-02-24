@@ -55,20 +55,25 @@ function getBabelConfig() {
 }
 
 function entryFiles(opts) {
-  let entryFiles = Object.assign(
-    {
-      app: [
-        "@babel/polyfill",
-        "./app/client/app.js"
-      ] /* babel 7 polyfill before app bootup - https://bundlephobia.com/result?p=@babel/polyfill@7.2.5 */,
-      serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs"
-    },
-    opts.entryFiles
-  );
+  let entryFiles = {};
+
+  if (fs.existsSync("./app/client/babel_polyfill.js")) {
+    entryFiles["babelPolyfill"] = "./app/client/babel_polyfill.js";
+  }
 
   if (fs.existsSync("./app/client/polyfill.js")) {
     entryFiles["polyfill"] = "./app/client/polyfill.js";
   }
+
+  entryFiles = Object.assign(
+    {},
+    entryFiles,
+    {
+      app: "./app/client/app.js",
+      serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs"
+    },
+    opts.entryFiles
+  );
 
   return entryFiles;
 }

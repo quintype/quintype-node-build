@@ -49,7 +49,13 @@ function getNodeConfig() {
 
   const plugins = commonPlugins.concat([reactCss, dynamicImport, assetsImport]);
 
-  const envPreset = ["@babel/preset-env", { targets: { node: "current" } }];
+  const envPreset = [
+    "@babel/preset-env",
+    {
+      useBuiltIns: "entry",
+      targets: { node: "current" }
+    }
+  ];
 
   const presets = commonPresets.concat([envPreset]);
 
@@ -68,7 +74,13 @@ function getBroweserConfig({ env }) {
 
   const plugins = commonPlugins.concat([reactCss, dynamicImport]);
 
-  const envPreset = ["@babel/preset-env", { modules: false }];
+  const envPreset = [
+    "@babel/preset-env",
+    {
+      useBuiltIns: "entry",
+      modules: false
+    }
+  ];
 
   const presets = commonPresets.concat([envPreset]);
 
