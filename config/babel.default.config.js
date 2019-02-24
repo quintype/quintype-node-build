@@ -47,14 +47,7 @@ function getNodeConfig() {
     }
   ];
 
-  const runtimeGenerator = ["@babel/plugin-transform-runtime"];
-
-  const plugins = commonPlugins.concat([
-    reactCss,
-    dynamicImport,
-    assetsImport,
-    runtimeGenerator
-  ]);
+  const plugins = commonPlugins.concat([reactCss, dynamicImport, assetsImport]);
 
   const envPreset = ["@babel/preset-env", { targets: { node: "current" } }];
 

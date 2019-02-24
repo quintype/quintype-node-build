@@ -57,7 +57,10 @@ function getBabelConfig() {
 function entryFiles(opts) {
   let entryFiles = Object.assign(
     {
-      app: ["@babel/polyfill", "./app/client/app.js"],
+      app: [
+        "@babel/polyfill",
+        "./app/client/app.js"
+      ] /* babel 7 polyfill before app bootup - https://bundlephobia.com/result?p=@babel/polyfill@7.2.5 */,
       serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs"
     },
     opts.entryFiles
