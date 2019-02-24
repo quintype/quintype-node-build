@@ -57,7 +57,7 @@ function getBabelConfig() {
 function entryFiles(opts) {
   let entryFiles = Object.assign(
     {
-      app: "./app/client/app.js",
+      app: ["@babel/polyfill", "./app/client/app.js"],
       serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs"
     },
     opts.entryFiles
