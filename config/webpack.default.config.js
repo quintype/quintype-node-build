@@ -58,10 +58,6 @@ function getBabelConfig() {
 function entryFiles(opts) {
   let entryFiles = {};
 
-  if (fs.existsSync("./app/client/babel_polyfill.js")) {
-    entryFiles["babelPolyfill"] = "./app/client/babel_polyfill.js";
-  }
-
   if (fs.existsSync("./app/client/polyfill.js")) {
     entryFiles["polyfill"] = "./app/client/polyfill.js";
   }
