@@ -6,7 +6,16 @@ const commonPresets = ["@babel/preset-react"];
 
 const commonPlugins = [
   "@babel/plugin-proposal-class-properties",
-  "@babel/plugin-proposal-object-rest-spread"
+  "@babel/plugin-proposal-object-rest-spread",
+  [
+    "@babel/plugin-transform-runtime",
+    {
+      corejs: false,
+      helpers: true,
+      regenerator: true,
+      useESModules: false
+    }
+  ]
 ];
 
 function getConfig(opts) {
@@ -52,7 +61,6 @@ function getNodeConfig() {
   const envPreset = [
     "@babel/preset-env",
     {
-      useBuiltIns: "entry",
       targets: { node: "current" }
     }
   ];
@@ -77,7 +85,6 @@ function getBroweserConfig({ env }) {
   const envPreset = [
     "@babel/preset-env",
     {
-      useBuiltIns: "entry",
       modules: false
     }
   ];

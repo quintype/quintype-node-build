@@ -49,7 +49,8 @@ function getBabelConfig() {
       // this is to ensure any existing babelrc configs in any file relative paths are ignored
       babelrc: false,
       // this path needs to be relative to this file and not PWD
-      configFile: path.resolve(__dirname, "./babel.js")
+      configFile: path.resolve(__dirname, "./babel.js"),
+      sourceType: "unambiguous"
     }
   };
 }
