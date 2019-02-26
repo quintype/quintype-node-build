@@ -28,7 +28,7 @@ function getRemainingConfig() {
   return { babelrc: false };
 }
 
-function getRuntimeConfig(babelTarget) {
+function getTransformRuntimePlugin(babelTarget) {
   let runtimeConfig = {
     corejs: false,
     helpers: true,
@@ -63,7 +63,7 @@ function getNodeConfig({ babelTarget }) {
   ];
 
   const plugins = commonPlugins.concat([
-    getRuntimeConfig(babelTarget),
+    getTransformRuntimePlugin(babelTarget),
     reactCss,
     dynamicImport,
     assetsImport
@@ -93,7 +93,7 @@ function getBrowserConfig({ env, babelTarget }) {
   const dynamicImport = ["@babel/plugin-syntax-dynamic-import"];
 
   const plugins = commonPlugins.concat([
-    getRuntimeConfig(babelTarget),
+    getTransformRuntimePlugin(babelTarget),
     reactCss,
     dynamicImport
   ]);
