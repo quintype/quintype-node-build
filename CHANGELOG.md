@@ -2,13 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-# [3.8.0](https://github.com/quintype/quintype-node-build/compare/v3.7.1...v3.8.0) (2019-02-26)
+## [3.8.1](https://github.com/quintype/quintype-node-build/compare/v3.8.0...v3.8.1) (2019-02-26)
 
 
-### Features
+### Bug Fixes
 
-* **runtime-generator:** Update package-lock ([746c0ac](https://github.com/quintype/quintype-node-build/commit/746c0ac))
-* **transform-runtime:** Polyfill app for runtime dependencies ([#15](https://github.com/quintype/quintype-node-build/issues/15)) ([abe368e](https://github.com/quintype/quintype-node-build/commit/abe368e))
+* **package.json:** Update dependencies ([13d92a8](https://github.com/quintype/quintype-node-build/commit/13d92a8))
 
 
 
