@@ -49,23 +49,28 @@ function getBabelConfig() {
       // this is to ensure any existing babelrc configs in any file relative paths are ignored
       babelrc: false,
       // this path needs to be relative to this file and not PWD
-      configFile: path.resolve(__dirname, "./babel.js")
+      configFile: path.resolve(__dirname, "./babel.js"),
+      sourceType: "unambiguous"
     }
   };
 }
 
 function entryFiles(opts) {
-  let entryFiles = Object.assign(
+  let entryFiles = {};
+
+  if (fs.existsSync("./app/client/polyfill.js")) {
+    entryFiles["polyfill"] = "./app/client/polyfill.js";
+  }
+
+  entryFiles = Object.assign(
+    {},
+    entryFiles,
     {
       app: "./app/client/app.js",
       serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs"
     },
     opts.entryFiles
   );
-
-  if (fs.existsSync("./app/client/polyfill.js")) {
-    entryFiles["polyfill"] = "./app/client/polyfill.js";
-  }
 
   return entryFiles;
 }

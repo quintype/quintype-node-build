@@ -14,7 +14,7 @@ function getConfig(opts) {
     case "node":
       return getNodeConfig(opts);
     case "browser":
-      return getBroweserConfig(opts);
+      return getBrowserConfig(opts);
     default:
       throw new Error(
         "Unknown value for environment variable BABEL_TARGET: " +
@@ -28,7 +28,18 @@ function getRemainingConfig() {
   return { babelrc: false };
 }
 
-function getNodeConfig() {
+function getTransformRuntimePlugin(babelTarget) {
+  const runtimeConfig = {
+    corejs: false,
+    helpers: true,
+    regenerator: true,
+    useESModules: babelTarget !== "node"
+  };
+
+  return ["@babel/plugin-transform-runtime", runtimeConfig];
+}
+
+function getNodeConfig({ babelTarget }) {
   const reactCss = [
     "babel-plugin-react-css-modules",
     Object.assign(
@@ -39,6 +50,7 @@ function getNodeConfig() {
     )
   ];
   const dynamicImport = ["babel-plugin-dynamic-import-node"];
+
   const assetsImport = [
     "babel-plugin-transform-assets-import-to-string",
     {
@@ -46,16 +58,26 @@ function getNodeConfig() {
     }
   ];
 
-  const plugins = commonPlugins.concat([reactCss, dynamicImport, assetsImport]);
+  const plugins = commonPlugins.concat([
+    getTransformRuntimePlugin(babelTarget),
+    reactCss,
+    dynamicImport,
+    assetsImport
+  ]);
 
-  const envPreset = ["@babel/preset-env", { targets: { node: "current" } }];
+  const envPreset = [
+    "@babel/preset-env",
+    {
+      targets: { node: "current" }
+    }
+  ];
 
   const presets = commonPresets.concat([envPreset]);
 
   return Object.assign(getRemainingConfig(), { plugins, presets });
 }
 
-function getBroweserConfig({ env }) {
+function getBrowserConfig({ env, babelTarget }) {
   const reactCss = [
     "babel-plugin-react-css-modules",
     Object.assign(
@@ -63,11 +85,21 @@ function getBroweserConfig({ env }) {
       reactCssPluginOptions
     )
   ];
+
   const dynamicImport = ["@babel/plugin-syntax-dynamic-import"];
 
-  const plugins = commonPlugins.concat([reactCss, dynamicImport]);
+  const plugins = commonPlugins.concat([
+    getTransformRuntimePlugin(babelTarget),
+    reactCss,
+    dynamicImport
+  ]);
 
-  const envPreset = ["@babel/preset-env", { modules: false }];
+  const envPreset = [
+    "@babel/preset-env",
+    {
+      modules: false
+    }
+  ];
 
   const presets = commonPresets.concat([envPreset]);
 
