@@ -6,16 +6,7 @@ const commonPresets = ["@babel/preset-react"];
 
 const commonPlugins = [
   "@babel/plugin-proposal-class-properties",
-  "@babel/plugin-proposal-object-rest-spread",
-  [
-    "@babel/plugin-transform-runtime",
-    {
-      corejs: false,
-      helpers: true,
-      regenerator: true,
-      useESModules: false
-    }
-  ]
+  "@babel/plugin-proposal-object-rest-spread"
 ];
 
 function getConfig(opts) {
@@ -56,7 +47,22 @@ function getNodeConfig() {
     }
   ];
 
-  const plugins = commonPlugins.concat([reactCss, dynamicImport, assetsImport]);
+  const transformRuntime = [
+    "@babel/plugin-transform-runtime",
+    {
+      corejs: false,
+      helpers: true,
+      regenerator: true,
+      useESModules: false
+    }
+  ];
+
+  const plugins = commonPlugins.concat([
+    transformRuntime,
+    reactCss,
+    dynamicImport,
+    assetsImport
+  ]);
 
   const envPreset = [
     "@babel/preset-env",
@@ -78,9 +84,24 @@ function getBroweserConfig({ env }) {
       reactCssPluginOptions
     )
   ];
+
   const dynamicImport = ["@babel/plugin-syntax-dynamic-import"];
 
-  const plugins = commonPlugins.concat([reactCss, dynamicImport]);
+  const transformRuntime = [
+    "@babel/plugin-transform-runtime",
+    {
+      corejs: false,
+      helpers: true,
+      regenerator: true,
+      useESModules: true
+    }
+  ];
+
+  const plugins = commonPlugins.concat([
+    transformRuntime,
+    reactCss,
+    dynamicImport
+  ]);
 
   const envPreset = [
     "@babel/preset-env",
