@@ -29,16 +29,12 @@ function getRemainingConfig() {
 }
 
 function getTransformRuntimePlugin(babelTarget) {
-  let runtimeConfig = {
+  const runtimeConfig = {
     corejs: false,
     helpers: true,
     regenerator: true,
-    useESModules: true
+    useESModules: babelTarget !== "node"
   };
-
-  if (babelTarget === "node") {
-    runtimeConfig = Object.assign({}, runtimeConfig, { useESModules: false });
-  }
 
   return ["@babel/plugin-transform-runtime", runtimeConfig];
 }
