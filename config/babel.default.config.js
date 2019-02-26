@@ -14,7 +14,7 @@ function getConfig(opts) {
     case "node":
       return getNodeConfig(opts);
     case "browser":
-      return getBroweserConfig(opts);
+      return getBrowserConfig(opts);
     default:
       throw new Error(
         "Unknown value for environment variable BABEL_TARGET: " +
@@ -28,7 +28,22 @@ function getRemainingConfig() {
   return { babelrc: false };
 }
 
-function getNodeConfig() {
+function getRuntimeConfig(babelTarget) {
+  let runtimeConfig = {
+    corejs: false,
+    helpers: true,
+    regenerator: true,
+    useESModules: true
+  };
+
+  if (babelTarget === "node") {
+    runtimeConfig = Object.assign({}, runtimeConfig, { useESModules: false });
+  }
+
+  return ["@babel/plugin-transform-runtime", runtimeConfig];
+}
+
+function getNodeConfig({ babelTarget }) {
   const reactCss = [
     "babel-plugin-react-css-modules",
     Object.assign(
@@ -47,18 +62,8 @@ function getNodeConfig() {
     }
   ];
 
-  const transformRuntime = [
-    "@babel/plugin-transform-runtime",
-    {
-      corejs: false,
-      helpers: true,
-      regenerator: true,
-      useESModules: false
-    }
-  ];
-
   const plugins = commonPlugins.concat([
-    transformRuntime,
+    getRuntimeConfig(babelTarget),
     reactCss,
     dynamicImport,
     assetsImport
@@ -76,7 +81,7 @@ function getNodeConfig() {
   return Object.assign(getRemainingConfig(), { plugins, presets });
 }
 
-function getBroweserConfig({ env }) {
+function getBrowserConfig({ env, babelTarget }) {
   const reactCss = [
     "babel-plugin-react-css-modules",
     Object.assign(
@@ -87,18 +92,8 @@ function getBroweserConfig({ env }) {
 
   const dynamicImport = ["@babel/plugin-syntax-dynamic-import"];
 
-  const transformRuntime = [
-    "@babel/plugin-transform-runtime",
-    {
-      corejs: false,
-      helpers: true,
-      regenerator: true,
-      useESModules: true
-    }
-  ];
-
   const plugins = commonPlugins.concat([
-    transformRuntime,
+    getRuntimeConfig(babelTarget),
     reactCss,
     dynamicImport
   ]);
