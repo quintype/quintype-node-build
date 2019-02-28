@@ -75,3 +75,8 @@ Steps,
 sh <(curl https://raw.githubusercontent.com/quintype/quintype-node-build/master/scripts/build-2-to-3-migration)
 ```
 - Verify Changes with `git diff --cached`.
+
+Note: 
+1. We need `./app/client/font.js` available in the project with `fontfaceobserver` as a dev dependency
+2. If you have to compile any native addon (with `node-gyp`) make sure to install python,make and g++ in Docker file in build stage.
+
