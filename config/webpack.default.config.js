@@ -1,7 +1,6 @@
 const webpack = require("webpack");
 const fs = require("fs");
 const path = require("path");
-
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
@@ -148,23 +147,6 @@ function getConfig(opts) {
           }
         }
       ]
-    },
-    resolve: {
-      alias: {
-        // Move it to client app's
-        "lodash-es": "lodash",
-        "lodash.debounce": "lodash/debounce",
-        "@quintype/components": path.resolve(
-          "./node_modules/@quintype/components"
-        ),
-        react: path.resolve("./node_modules/react"),
-        "react-redux": path.resolve("./node_modules/react-redux"),
-        redux: path.resolve("./node_modules/redux"),
-        warning: path.resolve("./node_modules/warning"),
-        "hoist-non-react-statics": path.resolve(
-          "./node_modules/hoist-non-react-statics"
-        )
-      }
     },
     plugins: [
       new LodashModuleReplacementPlugin(),
