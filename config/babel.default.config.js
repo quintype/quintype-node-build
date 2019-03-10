@@ -97,6 +97,9 @@ function getBrowserConfig({ env, babelTarget }) {
   const envPreset = [
     "@babel/preset-env",
     {
+      targets: {
+        browsers: ["last 2 versions", "safari > 8", "not ie < 11"]
+      },
       modules: false
     }
   ];

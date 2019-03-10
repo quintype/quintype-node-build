@@ -7,6 +7,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
 
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
+
 function getCssModuleConfig({ env = "development" }) {
   const extractLoader =
     env === "production"
@@ -48,6 +50,7 @@ function getBabelConfig() {
     options: {
       // this is to ensure any existing babelrc configs in any file relative paths are ignored
       babelrc: false,
+      plugins: ["lodash"],
       // this path needs to be relative to this file and not PWD
       configFile: path.resolve(__dirname, "./babel.js"),
       sourceType: "unambiguous"
@@ -146,7 +149,25 @@ function getConfig(opts) {
         }
       ]
     },
+    resolve: {
+      alias: {
+        // Move it to client app's
+        "lodash-es": "lodash",
+        "lodash.debounce": "lodash/debounce",
+        "@quintype/components": path.resolve(
+          "./node_modules/@quintype/components"
+        ),
+        react: path.resolve("./node_modules/react"),
+        "react-redux": path.resolve("./node_modules/react-redux"),
+        redux: path.resolve("./node_modules/redux"),
+        warning: path.resolve("./node_modules/warning"),
+        "hoist-non-react-statics": path.resolve(
+          "./node_modules/hoist-non-react-statics"
+        )
+      }
+    },
     plugins: [
+      new LodashModuleReplacementPlugin(),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
       new ManifestPlugin({
