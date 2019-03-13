@@ -149,7 +149,9 @@ function getConfig(opts) {
       ]
     },
     plugins: [
-      new LodashModuleReplacementPlugin(),
+      new LodashModuleReplacementPlugin({
+        paths: true
+      }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
       new ManifestPlugin({
