@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.9.0](https://github.com/quintype/quintype-node-build/compare/v3.8.1...v3.9.0) (2019-05-03)
+
+
+### Features
+
+* **lodash:** Implement lodash plugin to reduce lodash bundle size ([#18](https://github.com/quintype/quintype-node-build/issues/18)) ([1428a3c](https://github.com/quintype/quintype-node-build/commit/1428a3c))
+
+
+
 ## [3.8.1](https://github.com/quintype/quintype-node-build/compare/v3.8.0...v3.8.1) (2019-02-26)
 
 
