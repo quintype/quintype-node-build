@@ -1,11 +1,12 @@
 const webpack = require("webpack");
 const fs = require("fs");
 const path = require("path");
-
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
+
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 function getCssModuleConfig({ env = "development" }) {
   const extractLoader =
@@ -48,6 +49,7 @@ function getBabelConfig() {
     options: {
       // this is to ensure any existing babelrc configs in any file relative paths are ignored
       babelrc: false,
+      plugins: ["lodash"],
       // this path needs to be relative to this file and not PWD
       configFile: path.resolve(__dirname, "./babel.js"),
       sourceType: "unambiguous"
@@ -147,6 +149,9 @@ function getConfig(opts) {
       ]
     },
     plugins: [
+      new LodashModuleReplacementPlugin({
+        paths: true
+      }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
       new ManifestPlugin({
