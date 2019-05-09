@@ -5,6 +5,7 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
+const SVGSpritemapPlugin = require("svg-spritemap-webpack-plugin");
 
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
@@ -139,7 +140,7 @@ function getConfig(opts) {
         { test: /\.module.css$/, use: config.cssModuleConfig },
         { test: /\.m.css$/, use: config.cssModuleConfig },
         {
-          test: /\.(jpe?g|gif|png|svg|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
+          test: /\.(jpe?g|gif|png|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
           loader: "file-loader",
           query: {
             context: "./app/assets",
@@ -148,11 +149,13 @@ function getConfig(opts) {
         }
       ]
     },
+
     plugins: [
       new LodashModuleReplacementPlugin({
         paths: true
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
+      new SVGSpritemapPlugin(),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
       new ManifestPlugin({
         map(asset) {

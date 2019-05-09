@@ -142,7 +142,7 @@ exports.webpackConfig = function webpackConfig(
         { test: /\.module.css$/, use: config.cssModuleLoader },
         { test: /\.m.css$/, use: config.cssModuleLoader },
         {
-          test: /\.(jpe?g|gif|png|svg|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
+          test: /\.(jpe?g|gif|png|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
           loader: "file-loader",
           query: {
             context: "./app/assets",
