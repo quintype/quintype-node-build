@@ -5,7 +5,7 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
-const SVGSpritemapPlugin = require("svg-spritemap-webpack-plugin");
+const SpriteLoaderPlugin = require("svg-sprite-loader/plugin");
 
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
@@ -146,6 +146,11 @@ function getConfig(opts) {
             context: "./app/assets",
             name: config.outputFileName("[ext]")
           }
+        },
+        {
+          test: /\.svg$/,
+          include: path.resolve(__dirname, "app/assets/**/*.svg"),
+          use: ["svg-sprite-loader"]
         }
       ]
     },
@@ -155,7 +160,7 @@ function getConfig(opts) {
         paths: true
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
-      new SVGSpritemapPlugin("./app/assets/**/*.svg"),
+      new SpriteLoaderPlugin(),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
       new ManifestPlugin({
         map(asset) {
