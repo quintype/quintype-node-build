@@ -149,16 +149,13 @@ function getConfig(opts) {
         },
         {
           test: /\.svg$/,
-          include: path.resolve(__dirname, "app/assets/**/*.svg"),
-          use: [
-            {
-              loader: "svg-sprite-loader",
-              options: {
-                extract: true,
-                spriteFilename: svgPath => `sprite${svgPath.substr(-4)}`
-              }
+          use: {
+            loader: "svg-sprite-loader",
+            options: {
+              extract: true,
+              spriteFilename: svgPath => `sprite${svgPath.substr(-4)}`
             }
-          ]
+          }
         }
       ]
     },
