@@ -155,7 +155,7 @@ function getConfig(opts) {
         paths: true
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
-      new SVGSpritemapPlugin(),
+      new SVGSpritemapPlugin("images/sprites/**/*.svg"),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
       new ManifestPlugin({
         map(asset) {
