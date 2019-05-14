@@ -150,7 +150,9 @@ function getConfig(opts) {
     },
     plugins: [
       new LodashModuleReplacementPlugin({
-        paths: true
+        paths: true,
+        collections: true,
+        shorthands: true
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
