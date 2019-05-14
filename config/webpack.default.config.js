@@ -153,7 +153,7 @@ function getConfig(opts) {
             loader: "svg-sprite-loader",
             options: {
               extract: true,
-              spriteFilename: svgPath => "sprite-[hash].svg"
+              spriteFilename: svgPath => "sprite.svg"
             }
           }
         }
