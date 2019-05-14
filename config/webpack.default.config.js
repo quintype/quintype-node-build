@@ -140,14 +140,6 @@ function getConfig(opts) {
         { test: /\.module.css$/, use: config.cssModuleConfig },
         { test: /\.m.css$/, use: config.cssModuleConfig },
         {
-          test: /\.(jpe?g|gif|png|woff|woff2|svg|eot|ttf|wav|mp3|ico|mp4)$/,
-          loader: "file-loader",
-          query: {
-            context: "./app/assets",
-            name: config.outputFileName("[ext]")
-          }
-        },
-        {
           test: /\.svg$/,
           use: {
             loader: "svg-sprite-loader",
@@ -155,6 +147,14 @@ function getConfig(opts) {
               extract: true,
               spriteFilename: svgPath => `sprite-${svgPath.substr(-4)}`
             }
+          }
+        },
+        {
+          test: /\.(jpe?g|gif|png|woff|woff2|svg|eot|ttf|wav|mp3|ico|mp4)$/,
+          loader: "file-loader",
+          query: {
+            context: "./app/assets",
+            name: config.outputFileName("[ext]")
           }
         }
       ]
