@@ -153,7 +153,8 @@ function getConfig(opts) {
             loader: "svg-sprite-loader",
             options: {
               extract: true,
-              spriteFilename: svgPath => "sprite.svg"
+              spriteFilename: "sprite.svg",
+              runtimeCompat: true
             }
           }
         }
@@ -165,7 +166,9 @@ function getConfig(opts) {
         paths: true
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
-      new SpriteLoaderPlugin(),
+      new SpriteLoaderPlugin({
+        plainSprite: true
+      }),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
       new ManifestPlugin({
         map(asset) {
