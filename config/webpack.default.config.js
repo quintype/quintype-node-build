@@ -44,17 +44,19 @@ function getSassConfig({ env = "development" }) {
 }
 
 function getBabelConfig() {
-  return {
-    loader: "babel-loader",
-    options: {
-      // this is to ensure any existing babelrc configs in any file relative paths are ignored
-      babelrc: false,
-      plugins: ["lodash"],
-      // this path needs to be relative to this file and not PWD
-      configFile: path.resolve(__dirname, "./babel.js"),
-      sourceType: "unambiguous"
+  return [
+    {
+      loader: "babel-loader",
+      options: {
+        // this is to ensure any existing babelrc configs in any file relative paths are ignored
+        babelrc: false,
+        plugins: ["lodash"],
+        // this path needs to be relative to this file and not PWD
+        configFile: path.resolve(__dirname, "./babel.js"),
+        sourceType: "unambiguous"
+      }
     }
-  };
+  ];
 }
 
 function entryFiles(opts) {
