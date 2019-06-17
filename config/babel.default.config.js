@@ -1,5 +1,5 @@
 const reactCssPluginOptions = {
-  generateScopedName: "[name]__[local]__[hash:base64:5]"
+  generateScopedName: "[path][name]__[local]--[hash:base64:5]"
 };
 
 const commonPresets = ["@babel/preset-react"];
