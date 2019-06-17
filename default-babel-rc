@@ -2,7 +2,7 @@
   plugins: [
     ["react-css-modules", {
       removeImport: true,
-      generateScopedName: "[path][name]__[local]--[hash:base64:5]"
+      generateScopedName: "[name]__[local]__[hash:base64:5]"
     }],
     "transform-class-properties",
     "transform-object-rest-spread"
