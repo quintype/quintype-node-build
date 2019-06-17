@@ -17,9 +17,10 @@ function getCssModuleConfig({ env = "development" }) {
     loader: "css-loader",
     options: {
       sourceMap: true,
-      modules: true,
-      importLoaders: 1,
-      localIdentName: "[name]__[local]__[hash:base64:5]"
+      modules: {
+        localIdentName: "[name]__[local]__[hash:base64:5]"
+      },
+      importLoaders: 1
     }
   };
   const preProcessCssLoader = {
