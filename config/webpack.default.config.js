@@ -137,7 +137,7 @@ function getConfig(opts) {
         },
         { test: /\.(sass|scss)$/, use: config.sassConfig },
         { test: /\.module.css$/, use: config.cssModuleConfig },
-        { test: /\.m.css$/, use: config.cssModuleConfig },
+        { test: /\.css$/, use: config.cssModuleConfig },
         {
           test: /\.(jpe?g|gif|png|svg|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
           loader: "file-loader",

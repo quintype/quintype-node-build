@@ -140,7 +140,7 @@ exports.webpackConfig = function webpackConfig(
         },
         { test: /\.(sass|scss)$/, use: config.sassLoader },
         { test: /\.module.css$/, use: config.cssModuleLoader },
-        { test: /\.m.css$/, use: config.cssModuleLoader },
+        { test: /\.css$/, use: config.cssModuleLoader },
         {
           test: /\.(jpe?g|gif|png|svg|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
           loader: "file-loader",
