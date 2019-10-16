@@ -1,3 +1,5 @@
+*This library is part of the [Malibu Framework](https://developers.quintype.com/malibu)*.
+
 The Quintype build plugin helps ensure a smooth development experience for developers working on Quintype apps.
 
 This plugin handles the following functionality
