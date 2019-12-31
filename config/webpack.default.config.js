@@ -5,6 +5,7 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
+const { getCssClassNames } = require("./utils");
 
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
@@ -19,7 +20,7 @@ function getCssModuleConfig({ env = "development" }) {
       sourceMap: true,
       modules: true,
       importLoaders: 1,
-      localIdentName: "[name]__[local]__[hash:base64:5]"
+      localIdentName: getCssClassNames()
     }
   };
   const preProcessCssLoader = {
