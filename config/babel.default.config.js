@@ -1,5 +1,7 @@
+const { getCssClassNames } = require("./utils");
+
 const reactCssPluginOptions = {
-  generateScopedName: "[name]__[local]__[hash:base64:5]"
+  generateScopedName: getCssClassNames()
 };
 
 const commonPresets = ["@babel/preset-react"];
