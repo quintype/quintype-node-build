@@ -18,9 +18,10 @@ function getCssModuleConfig({ env = "development" }) {
     loader: "css-loader",
     options: {
       sourceMap: true,
-      modules: true,
+      modules: {
+        localIdentName: getCssClassNames()        
+      },
       importLoaders: 1,
-      localIdentName: getCssClassNames()
     }
   };
   const preProcessCssLoader = {
@@ -45,7 +46,7 @@ function getSassConfig({ env = "development" }) {
 }
 
 function getBabelConfig() {
-  return {
+  return [{
     loader: "babel-loader",
     options: {
       // this is to ensure any existing babelrc configs in any file relative paths are ignored
@@ -55,7 +56,7 @@ function getBabelConfig() {
       configFile: path.resolve(__dirname, "./babel.js"),
       sourceType: "unambiguous"
     }
-  };
+  }];
 }
 
 function entryFiles(opts) {
