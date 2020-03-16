@@ -35,29 +35,13 @@ function getCssModuleConfig({ env = "development" }) {
 }
 
 function getSassConfig({ env = "development" }) {
-  const extractLoader =
+  return [
     env === "production"
       ? MiniCssExtractPlugin.loader
-      : { loader: "style-loader" };
-  const cssLoader = {
-    loader: "css-loader",
-    options: {
-      modules: true,
-      sourceMap: true,
-      importLoaders: 1,
-      localIdentName: getCssClassNames()
-    }
-  };
-  const preProcessCssLoader = {
-    loader: "postcss-loader",
-    options: {
-      ident: "postcss",
-      sourceMap: true,
-      plugins: () => [require("autoprefixer")]
-    }
-  };
-  const sassLoader = { loader: "sass-loader", options: { sourceMap: true } };
-  return [extractLoader, cssLoader, preProcessCssLoader, sassLoader];
+      : { loader: "style-loader" },
+    { loader: "css-loader", options: { sourceMap: true } },
+    { loader: "sass-loader", options: { sourceMap: true } }
+  ];
 }
 
 function getBabelConfig() {
@@ -147,11 +131,6 @@ function getConfig(opts) {
         {
           test: /\.jsx?$/,
           include: /node_modules\/@quintype\/framework/,
-          use: getBabelConfig(opts)
-        },
-        {
-          test: /\.jsx?$/,
-          include: /node_modules\/@quintype\/components\/store/,
           use: getBabelConfig(opts)
         },
         { test: /\.(sass|scss)$/, use: config.sassConfig },
