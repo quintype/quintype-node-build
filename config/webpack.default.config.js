@@ -20,16 +20,16 @@ function getCssModuleConfig({ env = "development" }) {
       sourceMap: true,
       modules: true,
       importLoaders: 1,
-      localIdentName: getCssClassNames()
-    }
+      localIdentName: getCssClassNames(),
+    },
   };
   const preProcessCssLoader = {
     loader: "postcss-loader",
     options: {
       ident: "postcss",
       sourceMap: true,
-      plugins: loader => [require("precss")(), require("autoprefixer")]
-    }
+      plugins: (loader) => [require("precss")(), require("autoprefixer")],
+    },
   };
   return [extractLoader, cssLoader, preProcessCssLoader];
 }
@@ -40,7 +40,7 @@ function getSassConfig({ env = "development" }) {
       ? MiniCssExtractPlugin.loader
       : { loader: "style-loader" },
     { loader: "css-loader", options: { sourceMap: true } },
-    { loader: "sass-loader", options: { sourceMap: true } }
+    { loader: "sass-loader", options: { sourceMap: true } },
   ];
 }
 
@@ -54,9 +54,9 @@ function getBabelConfig() {
         plugins: ["lodash"],
         // this path needs to be relative to this file and not PWD
         configFile: path.resolve(__dirname, "./babel.js"),
-        sourceType: "unambiguous"
-      }
-    }
+        sourceType: "unambiguous",
+      },
+    },
   ];
 }
 
@@ -72,7 +72,7 @@ function entryFiles(opts) {
     entryFiles,
     {
       app: "./app/client/app.js",
-      serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs"
+      serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs",
     },
     opts.entryFiles
   );
@@ -85,13 +85,13 @@ function getProductionConfig(opts) {
   const cssModuleConfig = getCssModuleConfig({ ...opts, env: "production" });
   const PUBLIC_PATH = `/${opts.publisherName}/assets/`;
   return {
-    outputFileName: suffix => `[name]-[hash:20].${suffix}`,
+    outputFileName: (suffix) => `[name]-[hash:20].${suffix}`,
     sassConfig,
     cssModuleConfig,
     cssFile: `[name]-[contenthash:20].css`,
     compressCSSPlugins: [new OptimizeCssAssetsPlugin()],
     outputPublicPath: PUBLIC_PATH,
-    sourceMapType: "source-map"
+    sourceMapType: "source-map",
   };
 }
 
@@ -100,13 +100,13 @@ function getDevelopmentConfig(opts) {
   const cssModuleConfig = getCssModuleConfig({ ...opts, env: "development" });
   const PUBLIC_PATH = `/${opts.publisherName}/assets/`;
   return {
-    outputFileName: suffix => `[name].${suffix}`,
+    outputFileName: (suffix) => `[name].${suffix}`,
     sassConfig,
     cssModuleConfig,
     cssFile: `[name].css`,
     compressCSSPlugins: [],
     outputPublicPath: "http://localhost:8080" + PUBLIC_PATH,
-    sourceMapType: "eval-source-map"
+    sourceMapType: "eval-source-map",
   };
 }
 
@@ -123,7 +123,7 @@ function getConfig(opts) {
     output: {
       path: OUTPUT_DIRECTORY,
       filename: config.outputFileName("js"),
-      publicPath: config.outputPublicPath
+      publicPath: config.outputPublicPath,
     },
     module: {
       rules: [
@@ -131,7 +131,12 @@ function getConfig(opts) {
         {
           test: /\.jsx?$/,
           include: /node_modules\/@quintype\/framework/,
-          use: getBabelConfig(opts)
+          use: getBabelConfig(opts),
+        },
+        {
+          test: /\.jsx?$/,
+          include: /node_modules\/@quintype\/components\/store/,
+          use: getBabelConfig(opts),
         },
         { test: /\.(sass|scss)$/, use: config.sassConfig },
         { test: /\.module.css$/, use: config.cssModuleConfig },
@@ -141,36 +146,36 @@ function getConfig(opts) {
           loader: "file-loader",
           query: {
             context: "./app/assets",
-            name: config.outputFileName("[ext]")
-          }
-        }
-      ]
+            name: config.outputFileName("[ext]"),
+          },
+        },
+      ],
     },
     plugins: [
       new LodashModuleReplacementPlugin({
-        paths: true
+        paths: true,
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
       new ManifestPlugin({
         map(asset) {
           return Object.assign(asset, {
-            path: asset.path.replace(config.outputPublicPath, PUBLIC_PATH)
+            path: asset.path.replace(config.outputPublicPath, PUBLIC_PATH),
           });
         },
         fileName: "../../../asset-manifest.json",
         publicPath: PUBLIC_PATH,
-        writeToFileEmit: true
+        writeToFileEmit: true,
       }),
       new DuplicatePackageCheckerPlugin({
-        verbose: true
-      })
+        verbose: true,
+      }),
     ].concat(config.compressCSSPlugins),
 
     devServer: {
-      headers: { "Access-Control-Allow-Origin": "*" }
+      headers: { "Access-Control-Allow-Origin": "*" },
     },
-    devtool: config.sourceMapType
+    devtool: config.sourceMapType,
   };
 }
 
