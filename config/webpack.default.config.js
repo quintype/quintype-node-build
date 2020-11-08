@@ -40,7 +40,13 @@ function getSassConfig({ env = "development" }) {
       ? MiniCssExtractPlugin.loader
       : { loader: "style-loader" },
     { loader: "css-loader", options: { sourceMap: true } },
-    { loader: "sass-loader", options: { sourceMap: true } }
+    {
+      loader: "sass-loader",
+      options: {
+        sourceMap: true,
+        includePaths: ["@quintype/arrow/dist/app.scss"]
+      }
+    }
   ];
 }
 
@@ -136,6 +142,11 @@ function getConfig(opts) {
         {
           test: /\.jsx?$/,
           include: /node_modules\/@quintype\/components\/store/,
+          use: getBabelConfig(opts)
+        },
+        {
+          test: /\.jsx?$/,
+          include: /node_modules\/@quintype\/arrow\/store/,
           use: getBabelConfig(opts)
         },
         { test: /\.(sass|scss)$/, use: config.sassConfig },
