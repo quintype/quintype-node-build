@@ -44,7 +44,7 @@ function getSassConfig({ env = "development" }) {
       loader: "sass-loader",
       options: {
         sourceMap: true,
-        includePaths: ["@quintype/arrow/dist/app.scss"]
+        includePaths: ["~@quintype/arrow/dist/app.scss"]
       }
     }
   ];
