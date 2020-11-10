@@ -144,11 +144,6 @@ function getConfig(opts) {
           include: /node_modules\/@quintype\/components\/store/,
           use: getBabelConfig(opts)
         },
-        {
-          test: /\.jsx?$/,
-          include: /node_modules\/@quintype\/arrow\/store/,
-          use: getBabelConfig(opts)
-        },
         { test: /\.(sass|scss)$/, use: config.sassConfig },
         { test: /\.module.css$/, use: config.cssModuleConfig },
         { test: /\.m.css$/, use: config.cssModuleConfig },
