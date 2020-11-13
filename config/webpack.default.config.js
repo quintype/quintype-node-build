@@ -10,10 +10,7 @@ const { getCssClassNames } = require("./utils");
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 function getCssModuleConfig({ env = "development" }) {
-  const extractLoader =
-    env === "production"
-      ? MiniCssExtractPlugin.loader
-      : { loader: "style-loader" };
+  const extractLoader = MiniCssExtractPlugin.loader;
   const cssLoader = {
     loader: "css-loader",
     options: {
@@ -169,7 +166,15 @@ function getConfig(opts) {
       }),
       new DuplicatePackageCheckerPlugin({
         verbose: true
-      })
+      }),
+      [
+        "css-modules-transform",
+        {
+          camelCase: true,
+          extensions: [".css", ".scss"]
+        }
+      ],
+      "dynamic-import-node"
     ].concat(config.compressCSSPlugins),
 
     devServer: {
