@@ -37,7 +37,12 @@ function getSassConfig({ env = "development" }) {
       ? MiniCssExtractPlugin.loader
       : { loader: "style-loader" },
     { loader: "css-loader", options: { sourceMap: true } },
-    { loader: "sass-loader", options: { sourceMap: true } }
+    {
+      loader: "sass-loader",
+      options: {
+        sourceMap: true
+      }
+    }
   ];
 }
 
@@ -166,15 +171,7 @@ function getConfig(opts) {
       }),
       new DuplicatePackageCheckerPlugin({
         verbose: true
-      }),
-      [
-        "css-modules-transform",
-        {
-          camelCase: true,
-          extensions: [".css", ".scss"]
-        }
-      ],
-      "dynamic-import-node"
+      })
     ].concat(config.compressCSSPlugins),
 
     devServer: {
