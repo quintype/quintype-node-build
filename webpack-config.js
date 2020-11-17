@@ -138,11 +138,7 @@ exports.webpackConfig = function webpackConfig(
           include: /node_modules\/@quintype\/components\/store/,
           use: BABEL_PRESET
         },
-        {
-          test: /\.(sass|scss)$/,
-          include: /node_modules\/@quintype\/arrow\/dist/,
-          use: config.sassLoader
-        },
+        { test: /\.(sass|scss)$/, use: config.sassLoader },
         { test: /\.module.css$/, use: config.cssModuleLoader },
         { test: /\.m.css$/, use: config.cssModuleLoader },
         {
@@ -158,9 +154,6 @@ exports.webpackConfig = function webpackConfig(
     plugins: [
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
-      new MiniCssExtractPlugin({
-        filename: /node_modules\/@quintype\/arrow\/dist\/app.scss?$/
-      }),
       new ManifestPlugin({
         map(asset) {
           return Object.assign(asset, {
