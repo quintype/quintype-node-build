@@ -154,6 +154,9 @@ exports.webpackConfig = function webpackConfig(
     plugins: [
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
+      new MiniCssExtractPlugin({
+        filename: /node_modules\/@quintype\/arrow\/dist\/app.scss?$/
+      }),
       new ManifestPlugin({
         map(asset) {
           return Object.assign(asset, {
