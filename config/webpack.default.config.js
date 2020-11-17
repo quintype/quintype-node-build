@@ -175,7 +175,7 @@ function getConfig(opts) {
       [
         "css-modules-transform",
         {
-          extractCss: "~@quintype/arrow/dist/app.scss"
+          extractCss: "../node_modules/@quintype/arrow/dist/app.scss"
         }
       ]
     ].concat(config.compressCSSPlugins),
