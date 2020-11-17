@@ -5,6 +5,7 @@
       generateScopedName: "[name]__[local]__[hash:base64:5]"
     }],
     "transform-class-properties",
-    "transform-object-rest-spread"
+    "transform-object-rest-spread",
+    "css-modules-transform"
   ]
 }

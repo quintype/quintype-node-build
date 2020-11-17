@@ -171,7 +171,13 @@ function getConfig(opts) {
       }),
       new DuplicatePackageCheckerPlugin({
         verbose: true
-      })
+      }),
+      [
+        "css-modules-transform",
+        {
+          extractCss: "~@quintype/arrow/dist/app.scss"
+        }
+      ]
     ].concat(config.compressCSSPlugins),
 
     devServer: {
