@@ -138,7 +138,11 @@ exports.webpackConfig = function webpackConfig(
           include: /node_modules\/@quintype\/components\/store/,
           use: BABEL_PRESET
         },
-        { test: /\.(sass|scss)$/, use: config.sassLoader },
+        {
+          test: /\.(sass|scss)$/,
+          include: /node_modules\/@quintype\/arrow\/dist/,
+          use: config.sassLoader
+        },
         { test: /\.module.css$/, use: config.cssModuleLoader },
         { test: /\.m.css$/, use: config.cssModuleLoader },
         {
