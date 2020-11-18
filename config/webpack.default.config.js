@@ -10,7 +10,10 @@ const { getCssClassNames } = require("./utils");
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 function getCssModuleConfig({ env = "development" }) {
-  const extractLoader = MiniCssExtractPlugin.loader;
+  const extractLoader =
+    env === "production"
+      ? MiniCssExtractPlugin.loader
+      : { loader: "style-loader" };
   const cssLoader = {
     loader: "css-loader",
     options: {
@@ -37,12 +40,7 @@ function getSassConfig({ env = "development" }) {
       ? MiniCssExtractPlugin.loader
       : { loader: "style-loader" },
     { loader: "css-loader", options: { sourceMap: true } },
-    {
-      loader: "sass-loader",
-      options: {
-        sourceMap: true
-      }
-    }
+    { loader: "sass-loader", options: { sourceMap: true } }
   ];
 }
 
@@ -150,6 +148,11 @@ function getConfig(opts) {
             context: "./app/assets",
             name: config.outputFileName("[ext]")
           }
+        },
+        {
+          test: /\.(sass|scss)$/,
+          include: /node_modules\/@quintype\/arrow\/dist/,
+          use: config.sassLoader
         }
       ]
     },
@@ -171,13 +174,7 @@ function getConfig(opts) {
       }),
       new DuplicatePackageCheckerPlugin({
         verbose: true
-      }),
-      [
-        "css-modules-transform",
-        {
-          extractCss: "../node_modules/@quintype/arrow/dist/app.scss"
-        }
-      ]
+      })
     ].concat(config.compressCSSPlugins),
 
     devServer: {
