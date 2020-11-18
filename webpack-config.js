@@ -144,16 +144,7 @@ exports.webpackConfig = function webpackConfig(
         {
           test: /\.(sass|scss)$/,
           include: /node_modules\/@quintype\/arrow\/dist/,
-          use: [
-            "isomorphic-style-loader",
-            {
-              loader: "css-loader",
-              options: {
-                importLoaders: 1
-              }
-            },
-            "postcss-loader"
-          ]
+          use: config.sassLoader
         },
         {
           test: /\.(jpe?g|gif|png|svg|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
