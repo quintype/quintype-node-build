@@ -148,6 +148,19 @@ exports.webpackConfig = function webpackConfig(
             context: "./app/assets",
             name: config.outputFileName("[ext]")
           }
+        },
+        {
+          test: /\.css$/,
+          use: [
+            "isomorphic-style-loader",
+            {
+              loader: "css-loader",
+              options: {
+                importLoaders: 1
+              }
+            },
+            "postcss-loader"
+          ]
         }
       ]
     },
