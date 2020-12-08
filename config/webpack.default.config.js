@@ -125,6 +125,9 @@ function getConfig(opts) {
       filename: config.outputFileName("js"),
       publicPath: config.outputPublicPath
     },
+    optimization: {
+      usedExports: true
+    },
     module: {
       rules: [
         { test: /\.jsx?$/, exclude: /node_modules/, use: getBabelConfig(opts) },
@@ -148,11 +151,6 @@ function getConfig(opts) {
             context: "./app/assets",
             name: config.outputFileName("[ext]")
           }
-        },
-        {
-          test: /\.(sass|scss)$/,
-          include: /node_modules\/@quintype\/arrow\/dist/,
-          use: config.sassLoader
         }
       ]
     },
