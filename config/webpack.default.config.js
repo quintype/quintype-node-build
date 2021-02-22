@@ -142,6 +142,18 @@ function getConfig(opts) {
         { test: /\.module.css$/, use: config.cssModuleConfig },
         { test: /\.m.css$/, use: config.cssModuleConfig },
         {
+          test: /\.arrow.css$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: "css-loader",
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
+        },
+        {
           test: /\.(jpe?g|gif|png|svg|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
           loader: "file-loader",
           query: {
