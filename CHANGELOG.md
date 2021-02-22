@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.10.3](https://github.com/quintype/quintype-node-build/compare/v3.10.2...v3.10.3) (2021-02-22)
+
 ### [3.10.2](https://github.com/quintype/quintype-node-build/compare/v3.10.1...v3.10.2) (2020-10-01)
 
 ### [3.10.1](https://github.com/quintype/quintype-node-build/compare/v3.10.0...v3.10.1) (2020-09-30)
