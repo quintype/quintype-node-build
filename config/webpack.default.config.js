@@ -5,6 +5,7 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
+const { getCssClassNames } = require("./utils");
 
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
@@ -17,10 +18,9 @@ function getCssModuleConfig({ env = "development" }) {
     loader: "css-loader",
     options: {
       sourceMap: true,
-      modules: {
-        localIdentName: "[name]__[local]__[hash:base64:5]"
-      },
-      importLoaders: 1
+      modules: true,
+      importLoaders: 1,
+      localIdentName: getCssClassNames()
     }
   };
   const preProcessCssLoader = {
@@ -141,6 +141,18 @@ function getConfig(opts) {
         { test: /\.(sass|scss)$/, use: config.sassConfig },
         { test: /\.module.css$/, use: config.cssModuleConfig },
         { test: /\.m.css$/, use: config.cssModuleConfig },
+        {
+          test: /\.arrow.css$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: "css-loader",
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
+        },
         {
           test: /\.(jpe?g|gif|png|svg|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
           loader: "file-loader",
