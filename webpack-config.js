@@ -117,6 +117,17 @@ exports.webpackConfig = function webpackConfig(
     entryFiles["polyfill"] = "./app/client/polyfill.js";
   }
 
+  const loadablePlugin = () => {
+    if (opts.loadable) {
+      const LoadableWebpackPlugin = require("@loadable/webpack-plugin");
+      const loadablePlugin = new LoadableWebpackPlugin({
+        writeToDisk: true,
+        filename: path.resolve("stats.json")
+      });
+      return loadablePlugin;
+    }
+  };
+
   return {
     entry: entryFiles,
     mode: process.env.NODE_ENV === "production" ? "production" : "development",
@@ -163,7 +174,8 @@ exports.webpackConfig = function webpackConfig(
         fileName: "../../../asset-manifest.json",
         publicPath: PUBLIC_PATH,
         writeToFileEmit: true
-      })
+      }),
+      loadablePlugin()
     ].concat(config.compressCSSPlugins),
 
     devServer: {
