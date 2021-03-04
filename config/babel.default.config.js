@@ -9,7 +9,8 @@ const commonPresets = ["@babel/preset-react"];
 
 const commonPlugins = [
   "@babel/plugin-proposal-class-properties",
-  "@babel/plugin-proposal-object-rest-spread"
+  "@babel/plugin-proposal-object-rest-spread",
+  "@loadable/babel-plugin"
 ];
 
 function getConfig(opts) {

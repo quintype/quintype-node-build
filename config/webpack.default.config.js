@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
 const { getCssClassNames } = require("./utils");
+const LoadablePlugin = require("@loadable/webpack-plugin");
 
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
@@ -13,7 +14,7 @@ function getCssModuleConfig({ env = "development" }) {
   const extractLoader =
     env === "production"
       ? MiniCssExtractPlugin.loader
-      : { loader: "style-loader" };
+      : MiniCssExtractPlugin.loader;
   const cssLoader = {
     loader: "css-loader",
     options: {
@@ -70,6 +71,10 @@ function entryFiles(opts) {
   entryFiles = Object.assign(
     {},
     entryFiles,
+    {
+      topbarCriticalCss: "./app/isomorphic/components/header",
+      navbarCriticalCss: "./app/isomorphic/components/header/nav-bar"
+    },
     {
       app: "./app/client/app.js",
       serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs"
@@ -181,6 +186,10 @@ function getConfig(opts) {
       }),
       new DuplicatePackageCheckerPlugin({
         verbose: true
+      }),
+      new LoadablePlugin({
+        writeToDisk: true,
+        filename: path.resolve("stats.json")
       })
     ].concat(config.compressCSSPlugins),
 
