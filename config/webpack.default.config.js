@@ -74,7 +74,8 @@ function entryFiles(opts) {
       app: "./app/client/app.js",
       serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs"
     },
-    opts.entryFiles
+    opts.entryFiles,
+    opts.loadableConfig && opts.loadableConfig.entryFiles
   );
 
   return entryFiles;
@@ -117,14 +118,16 @@ function getConfig(opts) {
     opts.env === "production"
       ? getProductionConfig(opts)
       : getDevelopmentConfig(opts);
-  const foobar = () => {
-    if (opts.loadableConfig) {
+  const includeLoadablePlugin = () => {
+    if (opts.loadableConfig && Object.keys(opts.loadableConfig).length > 0) {
       const LoadablePlugin = require("@loadable/webpack-plugin");
-      return new LoadablePlugin({
+      const loadablePluginInit = new LoadablePlugin({
         writeToDisk: true,
         filename: path.resolve("stats.json")
       });
+      return [loadablePluginInit];
     }
+    return [];
   };
   return {
     entry: entryFiles(opts),
@@ -191,7 +194,7 @@ function getConfig(opts) {
       new DuplicatePackageCheckerPlugin({
         verbose: true
       }),
-      foobar()
+      ...includeLoadablePlugin()
     ].concat(config.compressCSSPlugins),
 
     devServer: {

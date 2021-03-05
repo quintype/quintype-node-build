@@ -15,17 +15,10 @@ if (fs.existsSync(path.resolve("./package.json"))) {
 }
 
 const env = process.env["NODE_ENV"] || "development";
+const defaultConfig = getConfig({ env, publisherName, ...overrides });
 
-const defaultConfig = getConfig({ env, publisherName });
-
-let finalConfig = defaultConfig;
-
-if (typeof overrides.modifyWebpackConfig === "function") {
-  finalConfig = overrides.modifyWebpackConfig({ defaultConfig, env });
-} else if (typeof overrides.modifyWebpackConfig === "object") {
-  const loadableWebpackConfig =
-    overrides.modifyWebpackConfig.includeLoadableConfig;
-  finalConfig = getConfig({ env, publisherName, ...loadableWebpackConfig });
-}
+const finalConfig = overrides.modifyWebpackConfig
+  ? overrides.modifyWebpackConfig({ defaultConfig, env })
+  : defaultConfig;
 
 module.exports = finalConfig;
