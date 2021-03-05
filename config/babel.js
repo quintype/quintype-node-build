@@ -14,8 +14,19 @@ const env =
   process.env["BABEL_ENV"] || process.env["NODE_ENV"] || "development";
 
 const defaultConfig = getConfig({ babelTarget, env });
-const finalConfig = overrides.modifyBabelConfig
-  ? overrides.modifyBabelConfig({ defaultConfig, babelTarget, env })
-  : defaultConfig;
+
+let finalConfig = defaultConfig;
+
+if (typeof overrides.modifyBabelConfig === "function") {
+  finalConfig = overrides.modifyBabelConfig({
+    defaultConfig,
+    babelTarget,
+    env
+  });
+} else if (typeof overrides.modifyBabelConfig === "object") {
+  const loadableBabelConfig = overrides.modifyBabelConfig.includeLoadableConfig;
+
+  finalConfig = getConfig({ babelTarget, env, ...loadableBabelConfig });
+}
 
 module.exports = finalConfig;

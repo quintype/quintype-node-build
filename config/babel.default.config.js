@@ -9,8 +9,7 @@ const commonPresets = ["@babel/preset-react"];
 
 const commonPlugins = [
   "@babel/plugin-proposal-class-properties",
-  "@babel/plugin-proposal-object-rest-spread",
-  "@loadable/babel-plugin"
+  "@babel/plugin-proposal-object-rest-spread"
 ];
 
 function getConfig(opts) {
@@ -43,7 +42,7 @@ function getTransformRuntimePlugin(babelTarget) {
   return ["@babel/plugin-transform-runtime", runtimeConfig];
 }
 
-function getNodeConfig({ babelTarget }) {
+function getNodeConfig({ babelTarget, loadableBabelPlugin }) {
   const reactCss = [
     "babel-plugin-react-css-modules",
     Object.assign(
@@ -66,7 +65,8 @@ function getNodeConfig({ babelTarget }) {
     getTransformRuntimePlugin(babelTarget),
     reactCss,
     dynamicImport,
-    assetsImport
+    assetsImport,
+    loadableBabelPlugin
   ]);
 
   const envPreset = [

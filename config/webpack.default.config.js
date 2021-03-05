@@ -13,7 +13,7 @@ function getCssModuleConfig({ env = "development" }) {
   const extractLoader =
     env === "production"
       ? MiniCssExtractPlugin.loader
-      : MiniCssExtractPlugin.loader;
+      : { loader: "style-loader" };
   const cssLoader = {
     loader: "css-loader",
     options: {
@@ -117,6 +117,15 @@ function getConfig(opts) {
     opts.env === "production"
       ? getProductionConfig(opts)
       : getDevelopmentConfig(opts);
+  const foobar = () => {
+    if (opts.loadableConfig) {
+      const LoadablePlugin = require("@loadable/webpack-plugin");
+      return new LoadablePlugin({
+        writeToDisk: true,
+        filename: path.resolve("stats.json")
+      });
+    }
+  };
   return {
     entry: entryFiles(opts),
     mode: opts.env === "production" ? "production" : "development",
@@ -181,7 +190,8 @@ function getConfig(opts) {
       }),
       new DuplicatePackageCheckerPlugin({
         verbose: true
-      })
+      }),
+      foobar()
     ].concat(config.compressCSSPlugins),
 
     devServer: {
