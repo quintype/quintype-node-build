@@ -5,7 +5,7 @@ const path = require("path");
 
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ManifestPlugin = require("webpack-manifest-plugin");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 
 exports.webpackConfig = function webpackConfig(
   publisherName,
@@ -154,7 +154,7 @@ exports.webpackConfig = function webpackConfig(
     plugins: [
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
-      new ManifestPlugin({
+      new WebpackManifestPlugin({
         map(asset) {
           return Object.assign(asset, {
             path: asset.path.replace(config.outputPublicPath, PUBLIC_PATH)
