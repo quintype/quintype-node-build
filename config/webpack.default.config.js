@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ManifestPlugin = require("webpack-manifest-plugin");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
 const { getCssClassNames } = require("./utils");
 
@@ -156,7 +156,7 @@ function getConfig(opts) {
         {
           test: /\.(jpe?g|gif|png|svg|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
           loader: "file-loader",
-          query: {
+          options: {
             context: "./app/assets",
             name: config.outputFileName("[ext]")
           }
@@ -169,7 +169,7 @@ function getConfig(opts) {
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
-      new ManifestPlugin({
+      new WebpackManifestPlugin({
         map(asset) {
           return Object.assign(asset, {
             path: asset.path.replace(config.outputPublicPath, PUBLIC_PATH)
