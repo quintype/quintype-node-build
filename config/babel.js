@@ -12,8 +12,8 @@ if (fs.existsSync(path.resolve("./quintype-build.config.js"))) {
 const babelTarget = process.env["BABEL_TARGET"] || "";
 const env =
   process.env["BABEL_ENV"] || process.env["NODE_ENV"] || "development";
+const defaultConfig = getConfig({ babelTarget, env, ...overrides });
 
-const defaultConfig = getConfig({ babelTarget, env });
 const finalConfig = overrides.modifyBabelConfig
   ? overrides.modifyBabelConfig({ defaultConfig, babelTarget, env })
   : defaultConfig;

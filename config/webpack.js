@@ -15,8 +15,7 @@ if (fs.existsSync(path.resolve("./package.json"))) {
 }
 
 const env = process.env["NODE_ENV"] || "development";
-
-const defaultConfig = getConfig({ env, publisherName });
+const defaultConfig = getConfig({ env, publisherName, ...overrides });
 
 const finalConfig = overrides.modifyWebpackConfig
   ? overrides.modifyWebpackConfig({ defaultConfig, env })

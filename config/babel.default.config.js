@@ -12,12 +12,18 @@ const commonPlugins = [
   "@babel/plugin-proposal-object-rest-spread"
 ];
 
+const getLoadablePlugin = loadableConfig =>
+  loadableConfig && Object.keys(loadableConfig).length > 0
+    ? ["@loadable/babel-plugin"]
+    : [];
+
 function getConfig(opts) {
+  const loadableBabelPlugin = getLoadablePlugin((opts.loadableConfig = {}));
   switch (opts.babelTarget) {
     case "node":
-      return getNodeConfig(opts);
+      return getNodeConfig(opts, loadableBabelPlugin);
     case "browser":
-      return getBrowserConfig(opts);
+      return getBrowserConfig(opts, loadableBabelPlugin);
     default:
       throw new Error(
         "Unknown value for environment variable BABEL_TARGET: " +
@@ -42,7 +48,7 @@ function getTransformRuntimePlugin(babelTarget) {
   return ["@babel/plugin-transform-runtime", runtimeConfig];
 }
 
-function getNodeConfig({ babelTarget }) {
+function getNodeConfig({ babelTarget }, loadableBabelPlugin) {
   const reactCss = [
     "babel-plugin-react-css-modules",
     Object.assign(
@@ -65,7 +71,8 @@ function getNodeConfig({ babelTarget }) {
     getTransformRuntimePlugin(babelTarget),
     reactCss,
     dynamicImport,
-    assetsImport
+    assetsImport,
+    ...loadableBabelPlugin
   ]);
 
   const envPreset = [
@@ -80,7 +87,7 @@ function getNodeConfig({ babelTarget }) {
   return Object.assign(getRemainingConfig(), { plugins, presets });
 }
 
-function getBrowserConfig({ env, babelTarget }) {
+function getBrowserConfig({ env, babelTarget }, loadableBabelPlugin) {
   const reactCss = [
     "babel-plugin-react-css-modules",
     Object.assign(
@@ -94,7 +101,8 @@ function getBrowserConfig({ env, babelTarget }) {
   const plugins = commonPlugins.concat([
     getTransformRuntimePlugin(babelTarget),
     reactCss,
-    dynamicImport
+    dynamicImport,
+    ...loadableBabelPlugin
   ]);
 
   const envPreset = [

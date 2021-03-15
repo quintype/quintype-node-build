@@ -74,7 +74,8 @@ function entryFiles(opts) {
       app: "./app/client/app.js",
       serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs"
     },
-    opts.entryFiles
+    opts.entryFiles,
+    opts.loadableConfig && opts.loadableConfig.entryFiles
   );
 
   return entryFiles;
@@ -117,6 +118,17 @@ function getConfig(opts) {
     opts.env === "production"
       ? getProductionConfig(opts)
       : getDevelopmentConfig(opts);
+  const includeLoadablePlugin = () => {
+    if (opts.loadableConfig && Object.keys(opts.loadableConfig).length > 0) {
+      const LoadablePlugin = require("@loadable/webpack-plugin");
+      const loadablePluginInit = new LoadablePlugin({
+        writeToDisk: true,
+        filename: path.resolve("stats.json")
+      });
+      return [loadablePluginInit];
+    }
+    return [];
+  };
   return {
     entry: entryFiles(opts),
     mode: opts.env === "production" ? "production" : "development",
@@ -181,7 +193,8 @@ function getConfig(opts) {
       }),
       new DuplicatePackageCheckerPlugin({
         verbose: true
-      })
+      }),
+      ...includeLoadablePlugin()
     ].concat(config.compressCSSPlugins),
 
     devServer: {
