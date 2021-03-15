@@ -1,6 +1,6 @@
 {
   "name": "@quintype/build",
-  "version": "3.11.0-loadable-component.4",
+  "version": "3.11.0",
   "description": "Library that defines build process for node apps",
   "main": "src/index.js",
   "scripts": {
