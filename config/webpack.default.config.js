@@ -144,7 +144,12 @@ function getConfig(opts) {
         {
           test: /\.arrow.css$/,
           use: [
-            MiniCssExtractPlugin.loader,
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                esModule: false
+              }
+            },
             {
               loader: "css-loader",
               options: {
