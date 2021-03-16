@@ -32,7 +32,10 @@ exports.webpackConfig = function webpackConfig(
           sassLoader: [
             MiniCssExtractPlugin.loader,
             {
-              loader: "css-loader"
+              loader: "css-loader",
+              options: {
+                esModule: false
+              }
             },
             {
               loader: "sass-loader"
@@ -49,6 +52,7 @@ exports.webpackConfig = function webpackConfig(
               loader: "css-loader",
               options: {
                 modules: true,
+                esModule: false,
                 importLoaders: 1,
                 localIdentName: "[name]__[local]__[hash:base64:5]"
               }
@@ -78,7 +82,10 @@ exports.webpackConfig = function webpackConfig(
           outputFileName: suffix => `[name].${suffix}`,
           sassLoader: [
             { loader: "style-loader" },
-            { loader: "css-loader", options: { sourceMap: true } },
+            {
+              loader: "css-loader",
+              options: { sourceMap: true, esModule: false }
+            },
             { loader: "sass-loader", options: { sourceMap: true } }
           ],
           cssModuleLoader: [
@@ -88,6 +95,7 @@ exports.webpackConfig = function webpackConfig(
               options: {
                 sourceMap: true,
                 modules: true,
+                esModule: false,
                 importLoaders: 1,
                 localIdentName: "[name]__[local]__[hash:base64:5]"
               }
