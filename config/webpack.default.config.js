@@ -11,16 +11,18 @@ const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 function getCssModuleConfig({ env = "development" }) {
   const extractLoader =
-    env === "production"
-      ? MiniCssExtractPlugin.loader
-      : { loader: "style-loader" };
+      env === "production"
+          ? MiniCssExtractPlugin.loader
+          : { loader: "style-loader" };
   const cssLoader = {
     loader: "css-loader",
     options: {
       sourceMap: true,
-      modules: true,
+      esModule: false,
+      modules: {
+        localIdentName: getCssClassNames()
+      },
       importLoaders: 1,
-      localIdentName: getCssClassNames()
     }
   };
   const preProcessCssLoader = {
@@ -37,8 +39,8 @@ function getCssModuleConfig({ env = "development" }) {
 function getSassConfig({ env = "development" }) {
   return [
     env === "production"
-      ? MiniCssExtractPlugin.loader
-      : { loader: "style-loader" },
+        ? MiniCssExtractPlugin.loader
+        : { loader: "style-loader" },
     { loader: "css-loader", options: { sourceMap: true } },
     { loader: "sass-loader", options: { sourceMap: true } }
   ];
@@ -68,13 +70,13 @@ function entryFiles(opts) {
   }
 
   entryFiles = Object.assign(
-    {},
-    entryFiles,
-    {
-      app: "./app/client/app.js",
-      serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs"
-    },
-    opts.entryFiles
+      {},
+      entryFiles,
+      {
+        app: "./app/client/app.js",
+        serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs"
+      },
+      opts.entryFiles
   );
 
   return entryFiles;
@@ -114,9 +116,9 @@ function getConfig(opts) {
   const PUBLIC_PATH = `/${opts.publisherName}/assets/`;
   const OUTPUT_DIRECTORY = path.resolve(`./public/${PUBLIC_PATH}`);
   const config =
-    opts.env === "production"
-      ? getProductionConfig(opts)
-      : getDevelopmentConfig(opts);
+      opts.env === "production"
+          ? getProductionConfig(opts)
+          : getDevelopmentConfig(opts);
   return {
     entry: entryFiles(opts),
     mode: opts.env === "production" ? "production" : "development",
