@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.11.0](https://github.com/quintype/quintype-node-build/compare/v3.10.3...v3.11.0) (2021-03-15)
+
+
+### Features
+
+* **loadable:** Add loadable config for webpack and babel ([#41](https://github.com/quintype/quintype-node-build/issues/41)) ([ec51a21](https://github.com/quintype/quintype-node-build/commit/ec51a21d7289ecc16c89cccb5efa3a8342ec0a79))
+
 ### [3.10.3](https://github.com/quintype/quintype-node-build/compare/v3.10.2...v3.10.3) (2021-02-22)
 
 ### [3.10.2](https://github.com/quintype/quintype-node-build/compare/v3.10.1...v3.10.2) (2020-10-01)
