@@ -18,9 +18,10 @@ function getCssModuleConfig({ env = "development" }) {
     loader: "css-loader",
     options: {
       sourceMap: true,
-      modules: true,
-      importLoaders: 1,
-      localIdentName: getCssClassNames()
+      modules: {
+        localIdentName: getCssClassNames()
+      },
+      importLoaders: 1
     }
   };
   const preProcessCssLoader = {
