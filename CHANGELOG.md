@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.12.0](https://github.com/quintype/quintype-node-build/compare/v3.11.0...v3.12.0) (2021-03-31)
+
+
+### Features
+
+* **css-loader:** Bump css-loader to next major 3.6 :zap: ([#46](https://github.com/quintype/quintype-node-build/issues/46)) ([d64da20](https://github.com/quintype/quintype-node-build/commit/d64da20864304215c872ab4c42d5aff3ecf955c6))
+
 ## [3.11.0](https://github.com/quintype/quintype-node-build/compare/v3.10.3...v3.11.0) (2021-03-15)
 
 
