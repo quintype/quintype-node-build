@@ -1,7 +1,6 @@
 const { produce } = require("immer");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 var fs = require("fs");
-const path = require("path");
 
 module.exports = {
   modifyWebpackConfig: function({ defaultConfig }) {
@@ -11,11 +10,11 @@ module.exports = {
       const dir = "./app/assets/fonts";
       try {
         fs.readdirSync(dir).forEach(file => {
-          const fullPath = path.join(dir, file);
-          draft.entry[file] = fullPath;
+          const fullPath = `${dir}/${file}`;
+          draft.entry[`${file}`] = fullPath;
         });
       } catch (error) {
-        console.log("Error", error);
+        console.log("Error !!!", error);
       }
 
       if (process.env.ANALYZE_STATS === "true") {
