@@ -9,13 +9,14 @@ module.exports = {
       draft.node = { Buffer: false };
       draft.entry["font"] = "./app/client/font.js";
       const dir = "./app/assets/fonts";
-      fs.readdir(dir, (err, files) => {
-        if (err) return;
-        files.forEach(file => {
+      try {
+        fs.readdirSync(dir).forEach(file => {
           const fullPath = path.join(dir, file);
           draft.entry[file] = fullPath;
         });
-      });
+      } catch (error) {
+        console.log("Error", error);
+      }
 
       if (process.env.ANALYZE_STATS === "true") {
         draft.plugins.push(
