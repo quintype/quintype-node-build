@@ -1,6 +1,6 @@
 {
   "name": "@quintype/build",
-  "version": "3.12.1",
+  "version": "3.12.1-static-assets.0",
   "description": "Library that defines build process for node apps",
   "main": "src/index.js",
   "scripts": {
