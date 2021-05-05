@@ -11,7 +11,7 @@ module.exports = {
       try {
         fs.readdirSync(dir).forEach(file => {
           const fullPath = `${dir}/${file}`;
-          draft.entry[`${file}`] = fullPath;
+          draft.entry[file] = fullPath;
         });
       } catch (error) {
         console.log("Error !!!", error);
