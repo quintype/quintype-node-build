@@ -1,6 +1,6 @@
 const { produce } = require("immer");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-var fs = require("fs");
+const fs = require("fs");
 
 module.exports = {
   modifyWebpackConfig: function({ defaultConfig }) {
