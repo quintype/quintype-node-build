@@ -1,21 +1,33 @@
 const { produce } = require("immer");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-const fs = require("fs");
+const { resolve } = require("path");
+const { readdir } = require("fs").promises;
 
 module.exports = {
   modifyWebpackConfig: function({ defaultConfig }) {
+    console.log("here defaultConfig !!", defaultConfig);
     const config = produce(defaultConfig, function(draft) {
       draft.node = { Buffer: false };
       draft.entry["font"] = "./app/client/font.js";
-      const dir = "./app/assets/fonts";
-      try {
-        fs.readdirSync(dir).forEach(file => {
-          const fullPath = `${dir}/${file}`;
-          draft.entry[file] = fullPath;
-        });
-      } catch (error) {
-        console.log("Error !!!", error);
+
+      async function getFiles(dir) {
+        const dirents = await readdir(dir, { withFileTypes: true });
+        const files = await Promise.all(
+          dirents.map(dirent => {
+            const res = resolve(dir, dirent.name);
+            return dirent.isDirectory()
+              ? getFiles(res)
+              : { fileName: dirent.name, filePath: res };
+          })
+        );
+        return files.flat();
       }
+
+      const dir = "./app/assets/static-assets";
+
+      getFiles(dir).then(files =>
+        files.forEach(file => (draft.entry[file.fileName] = file.filePath))
+      );
 
       if (process.env.ANALYZE_STATS === "true") {
         draft.plugins.push(
