@@ -5,7 +5,6 @@ const { readdir } = require("fs").promises;
 
 module.exports = {
   modifyWebpackConfig: function({ defaultConfig }) {
-    console.log("here defaultConfig !!", defaultConfig);
     const config = produce(defaultConfig, function(draft) {
       draft.node = { Buffer: false };
       draft.entry["font"] = "./app/client/font.js";
