@@ -23,7 +23,7 @@ module.exports = {
         return files.flat();
       }
 
-      const dir = "./app/assets/static-assets";
+      const dir = "./app/static-assets";
 
       getFiles(dir).then(files =>
         files.forEach(file => (draft.entry[file.fileName] = file.filePath))
