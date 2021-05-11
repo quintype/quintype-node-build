@@ -8,6 +8,7 @@ const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack
 const { getCssClassNames } = require("./utils");
 
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 function getCssModuleConfig({ env = "development" }) {
   const extractLoader =
@@ -194,6 +195,9 @@ function getConfig(opts) {
       }),
       new DuplicatePackageCheckerPlugin({
         verbose: true
+      }),
+      new CopyPlugin({
+        patterns: [{ from: "./app/static-assets" }]
       }),
       ...includeLoadablePlugin()
     ].concat(config.compressCSSPlugins),

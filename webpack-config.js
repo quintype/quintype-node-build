@@ -6,6 +6,7 @@ const path = require("path");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 exports.webpackConfig = function webpackConfig(
   publisherName,
@@ -163,6 +164,9 @@ exports.webpackConfig = function webpackConfig(
         fileName: "../../../asset-manifest.json",
         publicPath: PUBLIC_PATH,
         writeToFileEmit: true
+      }),
+      new CopyPlugin({
+        patterns: [{ from: "./app/static-assets" }]
       })
     ].concat(config.compressCSSPlugins),
 
