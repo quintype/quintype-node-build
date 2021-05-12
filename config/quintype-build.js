@@ -21,10 +21,10 @@ module.exports = {
         });
         return files.flat();
       }
-      const files = getFiles(dir);
-      files.forEach(file => {
-        draft.entry[file.fileName] = file.filePath;
-      });
+      fs.existsSync(dir) &&
+        getFiles(dir).forEach(file => {
+          draft.entry[file.fileName] = file.filePath;
+        });
 
       if (process.env.ANALYZE_STATS === "true") {
         draft.plugins.push(
