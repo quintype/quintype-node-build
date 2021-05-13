@@ -9,19 +9,19 @@ module.exports = {
       draft.node = { Buffer: false };
       draft.entry["font"] = "./app/client/font.js";
 
-      const dir = "./app/static-assets";
-      function getFiles(dir) {
-        const dirents = fs.readdirSync(dir, { withFileTypes: true });
+      const staticAssets = "./app/static-assets";
+      function getFiles(staticAssets) {
+        const dirents = fs.readdirSync(staticAssets, { withFileTypes: true });
         const files = dirents.map(dirent => {
-          const res = resolve(dir, dirent.name);
+          const res = resolve(staticAssets, dirent.name);
           return dirent.isDirectory()
             ? getFiles(res)
             : { fileName: dirent.name, filePath: res };
         });
         return files.flat();
       }
-      fs.existsSync(dir) &&
-        getFiles(dir).forEach(file => {
+      fs.existsSync(staticAssets) &&
+        getFiles(staticAssets).forEach(file => {
           draft.entry[file.fileName] = file.filePath;
         });
 
