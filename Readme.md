@@ -80,24 +80,6 @@ Note:
 1. We need `./app/client/font.js` available in the project with `fontfaceobserver` as a dev dependency
 2. If you have to compile any native addon (with `node-gyp`) make sure to install python,make and g++ in Docker file in build stage.
 
-### Compile static assets
+### Static assets
 
-We support custom/static assets like fonts, icons, images, etc in order to compile it and build it separatly. For that you have to create a `static-assets` folder within `app`, Ex - `app/static-assets` and put all the custom assets within it. The below function will take care of rest of things like making a entry point for all the files and building it. 
-
-```javascript
-  const staticAssets = "./app/static-assets";
-  function getFiles(staticAssets) {
-    const dirents = fs.readdirSync(staticAssets, { withFileTypes: true });
-    const files = dirents.map(dirent => {
-      const res = resolve(staticAssets, dirent.name);
-      return dirent.isDirectory()
-        ? getFiles(res)
-        : { fileName: dirent.name, filePath: res };
-    });
-    return files.flat();
-  }
-  fs.existsSync(staticAssets) &&
-    getFiles(staticAssets).forEach(file => {
-      draft.entry[file.fileName] = file.filePath;
-    });
-```
+Static assets like fonts, icons, images, etc when placed in `static-assets` will be bundled separately. This is done for convenience, since many frontend apps were doing this by themselves.
