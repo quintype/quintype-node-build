@@ -82,4 +82,4 @@ Note:
 
 ### Static assets
 
-Static assets like fonts, icons, images, etc when placed in `static-assets` will be bundled separately. This is done for convenience, since many frontend apps were doing this by themselves.
+Static assets like fonts, icons, images, etc when placed in `app/static-assets` or any child directories of `app/static-assets` will be bundled separately. This is done for convenience, since many frontend apps were doing this by themselves.
