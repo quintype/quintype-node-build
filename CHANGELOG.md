@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.13.0](https://github.com/quintype/quintype-node-build/compare/v3.12.0...v3.13.0) (2021-05-17)
+
+
+### Features
+
+* **file-loader:** Compile static assets :zap:  ([#53](https://github.com/quintype/quintype-node-build/issues/53)) ([b83f813](https://github.com/quintype/quintype-node-build/commit/b83f81339f641fcca3114b563ea85438e31d9079))
+
 ## [3.12.0](https://github.com/quintype/quintype-node-build/compare/v3.11.0...v3.12.0) (2021-03-31)
 
 
