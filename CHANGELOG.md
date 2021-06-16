@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.13.1](https://github.com/quintype/quintype-node-build/compare/v3.13.0...v3.13.1) (2021-06-16)
+
+
+### Bug Fixes
+
+* add prettierrc file to standardize lint ([#56](https://github.com/quintype/quintype-node-build/issues/56)) ([bc5e8a3](https://github.com/quintype/quintype-node-build/commit/bc5e8a37ae51033883c29400000cfb093ff0a6b3))
+
 ## [3.13.0](https://github.com/quintype/quintype-node-build/compare/v3.12.0...v3.13.0) (2021-05-17)
 
 
