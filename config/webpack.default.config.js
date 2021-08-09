@@ -5,15 +5,15 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
+const glob = require("glob");
+const PurgecssPlugin = require("purgecss-webpack-plugin");
+
 const { getCssClassNames } = require("./utils");
 
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 function getCssModuleConfig({ env = "development" }) {
-  const extractLoader =
-    env === "production"
-      ? MiniCssExtractPlugin.loader
-      : { loader: "style-loader" };
+  const extractLoader = env === "production" ? MiniCssExtractPlugin.loader : { loader: "style-loader" };
   const cssLoader = {
     loader: "css-loader",
     options: {
@@ -37,9 +37,7 @@ function getCssModuleConfig({ env = "development" }) {
 
 function getSassConfig({ env = "development" }) {
   return [
-    env === "production"
-      ? MiniCssExtractPlugin.loader
-      : { loader: "style-loader" },
+    env === "production" ? MiniCssExtractPlugin.loader : { loader: "style-loader" },
     { loader: "css-loader", options: { sourceMap: true } },
     { loader: "sass-loader", options: { sourceMap: true } }
   ];
@@ -115,10 +113,7 @@ function getDevelopmentConfig(opts) {
 function getConfig(opts) {
   const PUBLIC_PATH = `/${opts.publisherName}/assets/`;
   const OUTPUT_DIRECTORY = path.resolve(`./public/${PUBLIC_PATH}`);
-  const config =
-    opts.env === "production"
-      ? getProductionConfig(opts)
-      : getDevelopmentConfig(opts);
+  const config = opts.env === "production" ? getProductionConfig(opts) : getDevelopmentConfig(opts);
   const includeLoadablePlugin = () => {
     if (opts.loadableConfig && Object.keys(opts.loadableConfig).length > 0) {
       const LoadablePlugin = require("@loadable/webpack-plugin");
@@ -183,6 +178,11 @@ function getConfig(opts) {
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
+      new PurgecssPlugin({
+        paths: glob.sync("https://fea.assettype.com/quintype-malibu/assets/app-703dac2de07930116fe7.js", {
+          nodir: true
+        })
+      }),
       new ManifestPlugin({
         map(asset) {
           return Object.assign(asset, {
