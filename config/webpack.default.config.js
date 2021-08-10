@@ -5,8 +5,7 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
-const glob = require("glob");
-const PurgecssPlugin = require("purgecss-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 const { getCssClassNames } = require("./utils");
 
@@ -178,11 +177,6 @@ function getConfig(opts) {
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
-      new PurgecssPlugin({
-        paths: glob.sync("https://fea.assettype.com/quintype-malibu/assets/app-703dac2de07930116fe7.js", {
-          nodir: true
-        })
-      }),
       new ManifestPlugin({
         map(asset) {
           return Object.assign(asset, {
@@ -198,6 +192,10 @@ function getConfig(opts) {
       }),
       ...includeLoadablePlugin()
     ].concat(config.compressCSSPlugins),
+
+    optimization: {
+      minimizer: [new OptimizeCssAssetsPlugin(), new TerserPlugin()]
+    },
 
     devServer: {
       headers: { "Access-Control-Allow-Origin": "*" }
