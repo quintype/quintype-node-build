@@ -1,6 +1,6 @@
 {
   "name": "@quintype/build",
-  "version": "3.13.2-remove-unused-css.0",
+  "version": "3.13.2-remove-unused-css.1",
   "description": "Library that defines build process for node apps",
   "main": "src/index.js",
   "scripts": {
