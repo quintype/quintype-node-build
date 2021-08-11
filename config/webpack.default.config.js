@@ -194,6 +194,7 @@ function getConfig(opts) {
     ].concat(config.compressCSSPlugins),
 
     optimization: {
+      minimize: true,
       minimizer: [new OptimizeCssAssetsPlugin(), new TerserPlugin()]
     },
 
