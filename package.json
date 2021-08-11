@@ -81,7 +81,7 @@
     "lint-staged": "^8.1.4",
     "onchange": "^4.1.0",
     "prettier": "1.16.4",
-    "terser-webpack-plugin": "^5.1.4"
+    "terser-webpack-plugin": "^4.2.3"
   },
   "husky": {
     "hooks": {
