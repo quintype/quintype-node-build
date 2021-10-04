@@ -1,6 +1,6 @@
 {
   "name": "@quintype/build",
-  "version": "3.11.0-webpack5.12",
+  "version": "3.13.1",
   "description": "Library that defines build process for node apps",
   "main": "src/index.js",
   "scripts": {
@@ -30,6 +30,9 @@
     "@babel/preset-react": "^7.14.5",
     "@babel/register": "^7.15.3",
     "@babel/runtime": "^7.15.4",
+    "@loadable/babel-plugin": "^5.13.2",
+    "@loadable/server": "^5.15.1",
+    "@loadable/webpack-plugin": "^5.15.1",
     "autoprefixer": "^10.3.6",
     "babel-jest": "^27.2.4",
     "babel-loader": "^8.2.2",
@@ -37,7 +40,7 @@
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-react-css-modules": "^5.2.6",
     "babel-plugin-transform-assets-import-to-string": "^1.2.0",
-    "css-loader": "^6.3.0",
+    "css-loader": "6.3.0",
     "duplicate-package-checker-webpack-plugin": "^3.0.0",
     "file-loader": "^6.2.0",
     "immer": "^9.0.6",
@@ -59,10 +62,7 @@
     "webpack-common-shake": "^2.1.0",
     "webpack-dev-server": "^4.3.0",
     "webpack-manifest-plugin": "^4.0.2",
-    "webpack-nano": "^1.1.1",
-    "yargs": "^17.2.1",
-    "@loadable/babel-plugin": "^5.13.2",
-    "@loadable/webpack-plugin": "^5.15.1"
+    "yargs": "^17.2.1"
   },
   "devDependencies": {
     "better-docs": "^2.3.2",

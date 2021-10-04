@@ -157,9 +157,10 @@ exports.webpackConfig = function webpackConfig(
         {
           test: /\.(jpe?g|gif|png|svg|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
           loader: "file-loader",
-          query: {
+          options: {
             context: "./app/assets",
-            name: config.outputFileName("[ext]")
+            name: config.outputFileName("[ext]"),
+            esModule: false
           }
         }
       ]
