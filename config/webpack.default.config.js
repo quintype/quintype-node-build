@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ManifestPlugin = require("webpack-manifest-plugin");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
 const { getCssClassNames } = require("./utils");
 
@@ -27,9 +27,10 @@ function getCssModuleConfig({ env = "development" }) {
   const preProcessCssLoader = {
     loader: "postcss-loader",
     options: {
-      ident: "postcss",
       sourceMap: true,
-      plugins: loader => [require("precss")(), require("autoprefixer")]
+      postcssOptions: {
+        plugins: loader => [require("precss")(), require("autoprefixer")]
+      }
     }
   };
   return [extractLoader, cssLoader, preProcessCssLoader];
@@ -183,7 +184,7 @@ function getConfig(opts) {
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new MiniCssExtractPlugin({ filename: config.cssFile }),
-      new ManifestPlugin({
+      new WebpackManifestPlugin({
         map(asset) {
           return Object.assign(asset, {
             path: asset.path.replace(config.outputPublicPath, PUBLIC_PATH)

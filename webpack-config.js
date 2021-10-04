@@ -60,12 +60,13 @@ exports.webpackConfig = function webpackConfig(
             {
               loader: "postcss-loader",
               options: {
-                ident: "postcss",
                 sourceMap: true,
-                plugins: loader => [
-                  require("precss")(),
-                  require("autoprefixer")
-                ]
+                postcssOptions: {
+                  plugins: loader => [
+                    require("precss")(),
+                    require("autoprefixer")
+                  ]
+                }
               }
             }
           ],
