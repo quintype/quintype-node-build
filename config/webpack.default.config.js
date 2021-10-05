@@ -29,10 +29,9 @@ function getCssModuleConfig({ env = "development" }) {
     options: {
       sourceMap: true,
       postcssOptions: {
-        plugins: loader => [require("precss")(), require("autoprefixer")]
       }
     }
-  };
+  }
   return [extractLoader, cssLoader, preProcessCssLoader];
 }
 
