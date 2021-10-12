@@ -4,6 +4,7 @@ const path = require("path");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
+const { getLocalIdent } = require('@dr.pogodin/babel-plugin-react-css-modules/utils');
 const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
 const { getCssClassNames } = require("./utils");
 
@@ -16,6 +17,7 @@ function getCssModuleConfig({ env = "development" }) {
     options: {
       sourceMap: true,
       modules: {
+        getLocalIdent,
         localIdentName: getCssClassNames()
       },
       importLoaders: 1

@@ -1,7 +1,11 @@
+const { generateScopedNameFactory } = require('@dr.pogodin/babel-plugin-react-css-modules/utils');
 const { getCssClassNames } = require("./utils");
 
 const reactCssPluginOptions = {
-  generateScopedName: getCssClassNames(),
+  generateScopedName:
+  // The classname template MUST match "localIdentName" option value
+  // you passed to "css-loader".
+    generateScopedNameFactory(getCssClassNames()),
   autoResolveMultipleImports: true
 };
 
