@@ -50,7 +50,7 @@ function getTransformRuntimePlugin(babelTarget) {
 
 function getNodeConfig({ babelTarget }, loadableBabelPlugin) {
   const reactCss = [
-    "babel-plugin-react-css-modules",
+    "@dr.pogodin/react-css-modules",
     Object.assign(
       {
         removeImport: true
@@ -89,7 +89,7 @@ function getNodeConfig({ babelTarget }, loadableBabelPlugin) {
 
 function getBrowserConfig({ env, babelTarget }, loadableBabelPlugin) {
   const reactCss = [
-    "babel-plugin-react-css-modules",
+    "@dr.pogodin/react-css-modules",
     Object.assign(
       { webpackHotModuleReloading: env !== "production" },
       reactCssPluginOptions
