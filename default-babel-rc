@@ -1,7 +1,7 @@
 {
   plugins: [
-    ["react-css-modules", {
-      removeImport: true,
+    ["@dr.pogodin/react-css-modules",
+    {
       generateScopedName: "[name]__[local]__[hash:base64:5]"
     }],
     "transform-class-properties",

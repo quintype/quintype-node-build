@@ -52,9 +52,9 @@ exports.webpackConfig = function webpackConfig(
               loader: "css-loader",
               options: {
                 modules: true,
-                esModule: false,
+                esModule: true,
                 importLoaders: 1,
-                localIdentName: "[name]__[local]__[hash:base64:5]"
+                localIdentName: "[name]__[local]__[hash:base64:5]",
               }
             },
             {
@@ -78,7 +78,7 @@ exports.webpackConfig = function webpackConfig(
       : {
           outputFileName: suffix => `[name].${suffix}`,
           sassLoader: [
-            { loader: "style-loader" },
+            MiniCssExtractPlugin.loader,
             {
               loader: "css-loader",
               options: { sourceMap: true, esModule: false }
@@ -92,9 +92,9 @@ exports.webpackConfig = function webpackConfig(
               options: {
                 sourceMap: true,
                 modules: true,
-                esModule: false,
+                esModule: true,
                 importLoaders: 1,
-                localIdentName: "[name]__[local]__[hash:base64:5]"
+                localIdentName: "[name]__[local]__[hash:base64:5]",
               }
             },
             {
@@ -161,7 +161,7 @@ exports.webpackConfig = function webpackConfig(
     },
     plugins: [
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
-      new MiniCssExtractPlugin({ filename: config.cssFile }),
+      new MiniCssExtractPlugin({ filename: config.cssFile, ignoreOrder: true }),
       new WebpackManifestPlugin({
         map(asset) {
           return Object.assign(asset, {

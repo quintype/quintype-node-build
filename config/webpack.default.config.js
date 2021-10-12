@@ -10,10 +10,7 @@ const { getCssClassNames } = require("./utils");
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 function getCssModuleConfig({ env = "development" }) {
-  const extractLoader =
-    env === "production"
-      ? MiniCssExtractPlugin.loader
-      : { loader: "style-loader" };
+  const extractLoader = MiniCssExtractPlugin.loader
   const cssLoader = {
     loader: "css-loader",
     options: {
@@ -37,9 +34,7 @@ function getCssModuleConfig({ env = "development" }) {
 
 function getSassConfig({ env = "development" }) {
   return [
-    env === "production"
-      ? MiniCssExtractPlugin.loader
-      : { loader: "style-loader" },
+    MiniCssExtractPlugin.loader,
     { loader: "css-loader", options: { sourceMap: true } },
     { loader: "sass-loader", options: { sourceMap: true } }
   ];
@@ -182,7 +177,7 @@ function getConfig(opts) {
         paths: true
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
-      new MiniCssExtractPlugin({ filename: config.cssFile }),
+      new MiniCssExtractPlugin({ filename: config.cssFile, ignoreOrder: true }),
       new WebpackManifestPlugin({
         map(asset) {
           return Object.assign(asset, {
