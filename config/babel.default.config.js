@@ -1,11 +1,8 @@
-const { generateScopedNameFactory } = require('@dr.pogodin/babel-plugin-react-css-modules/utils');
+const createGenerator = require('generic-names');
 const { getCssClassNames } = require("./utils");
 
 const reactCssPluginOptions = {
-  generateScopedName:
-  // The classname template MUST match "localIdentName" option value
-  // you passed to "css-loader".
-    generateScopedNameFactory(getCssClassNames()),
+  generateScopedName: createGenerator(getCssClassNames()),
   autoResolveMultipleImports: true
 };
 
@@ -54,7 +51,7 @@ function getTransformRuntimePlugin(babelTarget) {
 
 function getNodeConfig({ babelTarget }, loadableBabelPlugin) {
   const reactCss = [
-    "@dr.pogodin/react-css-modules",
+    "babel-plugin-react-css-modules",
     Object.assign(
       {
         removeImport: true
@@ -93,7 +90,7 @@ function getNodeConfig({ babelTarget }, loadableBabelPlugin) {
 
 function getBrowserConfig({ env, babelTarget }, loadableBabelPlugin) {
   const reactCss = [
-    "@dr.pogodin/react-css-modules",
+    "babel-plugin-react-css-modules",
     Object.assign(
       { webpackHotModuleReloading: env !== "production" },
       reactCssPluginOptions
