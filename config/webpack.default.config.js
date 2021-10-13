@@ -1,14 +1,23 @@
 const webpack = require("webpack");
 const fs = require("fs");
 const path = require("path");
+const genericNames = require('generic-names');
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
-const { getLocalIdent } = require('@dr.pogodin/babel-plugin-react-css-modules/utils');
 const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
 const { getCssClassNames } = require("./utils");
 
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
+
+const generate = genericNames('[name]__[local]__[hash:base64:5]', {
+  context: process.cwd()
+});
+
+const generateScopedName = (localName, filePath) => {
+  const relativePath = path.relative(process.cwd(), filePath);
+  return generate(localName, relativePath);
+};
 
 function getCssModuleConfig({ env = "development" }) {
   const extractLoader = MiniCssExtractPlugin.loader
@@ -17,8 +26,9 @@ function getCssModuleConfig({ env = "development" }) {
     options: {
       sourceMap: true,
       modules: {
-        getLocalIdent,
-        localIdentName: getCssClassNames()
+        getLocalIdent: (context, localIdentName, localName) => {
+          return generateScopedName(localName, context.resourcePath)
+        }
       },
       importLoaders: 1
     }
