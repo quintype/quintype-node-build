@@ -10,7 +10,7 @@ const { getCssClassNames } = require("./utils");
 
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
-const generate = genericNames('[name]__[local]__[hash:base64:5]', {
+const generate = genericNames(getCssClassNames(), {
   context: process.cwd()
 });
 
@@ -207,7 +207,8 @@ function getConfig(opts) {
     ].concat(config.compressCSSPlugins),
 
     devServer: {
-      headers: { "Access-Control-Allow-Origin": "*" }
+      headers: { "Access-Control-Allow-Origin": "*" },
+      hot: true
     },
     devtool: config.sourceMapType
   };
