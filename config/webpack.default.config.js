@@ -20,7 +20,7 @@ const generateScopedName = (localName, filePath) => {
 };
 
 function getCssModuleConfig({ env = "development" }) {
-  const extractLoader = MiniCssExtractPlugin.loader
+  const extractLoader = env === "development" ? "style-loader" : MiniCssExtractPlugin.loader;
   const cssLoader = {
     loader: "css-loader",
     options: {
@@ -189,7 +189,6 @@ function getConfig(opts) {
         paths: true
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
-      new MiniCssExtractPlugin({ filename: config.cssFile, ignoreOrder: true }),
       new WebpackManifestPlugin({
         map(asset) {
           return Object.assign(asset, {
@@ -204,11 +203,13 @@ function getConfig(opts) {
         verbose: true
       }),
       ...includeLoadablePlugin()
-    ].concat(config.compressCSSPlugins),
+    ]
+      .concat(config.compressCSSPlugins)
+      .concat(opts.env !== "production" ? [] : [new MiniCssExtractPlugin()]),
 
     devServer: {
       headers: { "Access-Control-Allow-Origin": "*" },
-      hot: true
+      hot: opts.env !== "production"
     },
     devtool: config.sourceMapType
   };
