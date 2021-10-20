@@ -46,7 +46,9 @@ function getCssModuleConfig({ env = "development" }) {
 
 function getSassConfig({ env = "development" }) {
   return [
-    MiniCssExtractPlugin.loader,
+    env === "production"
+      ? MiniCssExtractPlugin.loader
+      : { loader: "style-loader" },
     { loader: "css-loader", options: { sourceMap: true } },
     { loader: "sass-loader", options: { sourceMap: true } }
   ];
@@ -188,6 +190,7 @@ function getConfig(opts) {
       new LodashModuleReplacementPlugin({
         paths: true
       }),
+      new MiniCssExtractPlugin(),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new WebpackManifestPlugin({
         map(asset) {
@@ -203,9 +206,7 @@ function getConfig(opts) {
         verbose: true
       }),
       ...includeLoadablePlugin()
-    ]
-      .concat(config.compressCSSPlugins)
-      .concat(opts.env !== "production" ? [] : [new MiniCssExtractPlugin()]),
+    ].concat(config.compressCSSPlugins),
 
     devServer: {
       headers: { "Access-Control-Allow-Origin": "*" },
