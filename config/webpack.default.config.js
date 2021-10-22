@@ -20,7 +20,7 @@ const generateScopedName = (localName, filePath) => {
 };
 
 function getCssModuleConfig({ env = "development" }) {
-  const extractLoader = env === "development" ? "style-loader" : MiniCssExtractPlugin.loader;
+  const extractLoader =  MiniCssExtractPlugin.loader;
   const cssLoader = {
     loader: "css-loader",
     options: {
@@ -37,18 +37,19 @@ function getCssModuleConfig({ env = "development" }) {
     loader: "postcss-loader",
     options: {
       sourceMap: true,
-      postcssOptions: {
-      }
-    }
+      postcssOptions: (loaderContext) => {
+        return {
+          plugins: [require("precss")(), require("autoprefixer")]
+        }
+      },
+    },
   }
   return [extractLoader, cssLoader, preProcessCssLoader];
 }
 
 function getSassConfig({ env = "development" }) {
   return [
-    env === "production"
-      ? MiniCssExtractPlugin.loader
-      : { loader: "style-loader" },
+    MiniCssExtractPlugin.loader,
     { loader: "css-loader", options: { sourceMap: true } },
     { loader: "sass-loader", options: { sourceMap: true } }
   ];
@@ -207,7 +208,6 @@ function getConfig(opts) {
       }),
       ...includeLoadablePlugin()
     ].concat(config.compressCSSPlugins),
-
     devServer: {
       headers: { "Access-Control-Allow-Origin": "*" },
       hot: opts.env !== "production"
