@@ -192,6 +192,7 @@ function getConfig(opts) {
         paths: true
       }),
       new MiniCssExtractPlugin({
+        filename: config.cssFile,
         ignoreOrder: true
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
