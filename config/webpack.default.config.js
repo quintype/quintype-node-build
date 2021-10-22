@@ -191,7 +191,9 @@ function getConfig(opts) {
       new LodashModuleReplacementPlugin({
         paths: true
       }),
-      new MiniCssExtractPlugin(),
+      new MiniCssExtractPlugin({
+        ignoreOrder: true
+      }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new WebpackManifestPlugin({
         map(asset) {
