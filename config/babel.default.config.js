@@ -26,10 +26,8 @@ function getConfig(opts) {
     case "browser":
       return getBrowserConfig(opts, loadableBabelPlugin);
     default:
-      throw new Error(
-        "Unknown value for environment variable BABEL_TARGET: " +
-          opts.babelTarget
-      );
+      console.warn("Babel Target not specified defaulting to `browser`");
+      return getBrowserConfig(opts, loadableBabelPlugin);
   }
 }
 
