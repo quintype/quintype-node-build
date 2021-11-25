@@ -1,22 +1,17 @@
-const createGenerator = require('generic-names');
+const createGenerator = require("generic-names");
 const { getCssClassNames } = require("./utils");
 
 const reactCssPluginOptions = {
   generateScopedName: createGenerator(getCssClassNames()),
-  autoResolveMultipleImports: true
+  autoResolveMultipleImports: true,
 };
 
 const commonPresets = ["@babel/preset-react"];
 
-const commonPlugins = [
-  "@babel/plugin-proposal-class-properties",
-  "@babel/plugin-proposal-object-rest-spread"
-];
+const commonPlugins = ["@babel/plugin-proposal-class-properties", "@babel/plugin-proposal-object-rest-spread"];
 
-const getLoadablePlugin = loadableConfig =>
-  loadableConfig && Object.keys(loadableConfig).length > 0
-    ? ["@loadable/babel-plugin"]
-    : [];
+const getLoadablePlugin = (loadableConfig) =>
+  loadableConfig && Object.keys(loadableConfig).length > 0 ? ["@loadable/babel-plugin"] : [];
 
 function getConfig(opts) {
   const loadableBabelPlugin = getLoadablePlugin((opts.loadableConfig = {}));
@@ -41,7 +36,7 @@ function getTransformRuntimePlugin(babelTarget) {
     corejs: false,
     helpers: true,
     regenerator: true,
-    useESModules: babelTarget !== "node"
+    useESModules: babelTarget !== "node",
   };
 
   return ["@babel/plugin-transform-runtime", runtimeConfig];
@@ -52,18 +47,18 @@ function getNodeConfig({ babelTarget }, loadableBabelPlugin) {
     "babel-plugin-react-css-modules",
     Object.assign(
       {
-        removeImport: true
+        removeImport: true,
       },
       reactCssPluginOptions
-    )
+    ),
   ];
   const dynamicImport = ["babel-plugin-dynamic-import-node"];
 
   const assetsImport = [
     "babel-plugin-transform-assets-import-to-string",
     {
-      extensions: [".gif", ".jpeg", ".jpg", ".png", ".svg", ".css", ".scss"]
-    }
+      extensions: [".gif", ".jpeg", ".jpg", ".png", ".svg", ".css", ".scss"],
+    },
   ];
 
   const plugins = commonPlugins.concat([
@@ -71,14 +66,14 @@ function getNodeConfig({ babelTarget }, loadableBabelPlugin) {
     reactCss,
     dynamicImport,
     assetsImport,
-    ...loadableBabelPlugin
+    ...loadableBabelPlugin,
   ]);
 
   const envPreset = [
     "@babel/preset-env",
     {
-      targets: { node: "current" }
-    }
+      targets: { node: "current" },
+    },
   ];
 
   const presets = commonPresets.concat([envPreset]);
@@ -89,10 +84,7 @@ function getNodeConfig({ babelTarget }, loadableBabelPlugin) {
 function getBrowserConfig({ env, babelTarget }, loadableBabelPlugin) {
   const reactCss = [
     "babel-plugin-react-css-modules",
-    Object.assign(
-      { webpackHotModuleReloading: env !== "production" },
-      reactCssPluginOptions
-    )
+    Object.assign({ webpackHotModuleReloading: env !== "production" }, reactCssPluginOptions),
   ];
 
   const dynamicImport = ["@babel/plugin-syntax-dynamic-import"];
@@ -101,17 +93,17 @@ function getBrowserConfig({ env, babelTarget }, loadableBabelPlugin) {
     getTransformRuntimePlugin(babelTarget),
     reactCss,
     dynamicImport,
-    ...loadableBabelPlugin
+    ...loadableBabelPlugin,
   ]);
 
   const envPreset = [
     "@babel/preset-env",
     {
       targets: {
-        browsers: ["last 2 versions", "safari > 8", "not ie < 11"]
+        browsers: ["last 2 versions", "safari > 8", "not ie < 11"],
       },
-      modules: false
-    }
+      modules: false,
+    },
   ];
 
   const presets = commonPresets.concat([envPreset]);

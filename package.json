@@ -7,7 +7,8 @@
     "docs": "rimraf docs && jsdoc -c jsdoc.json",
     "lint:js:ci": "npx eslint $(git diff --diff-filter=ACM --pretty='' --name-only origin/master..HEAD -- '*.js') 'src/index.js'",
     "prepublishOnly": "./bin-dev-scripts/standard-version-release.sh",
-    "sync-files-to": "npx onchange --verbose --wait --await-write-finish '**/*' -- ./bin-dev-scripts/sync-to.sh "
+    "sync-files-to": "npx onchange --verbose --wait --await-write-finish '**/*' -- ./bin-dev-scripts/sync-to.sh ",
+    "prepare": "husky install"
   },
   "keywords": [
     "node",
@@ -25,8 +26,8 @@
     "@babel/plugin-proposal-class-properties": "^7.16.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.16.0",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/plugin-transform-runtime": "^7.16.0",
-    "@babel/preset-env": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.4",
+    "@babel/preset-env": "^7.16.4",
     "@babel/preset-react": "^7.16.0",
     "@babel/register": "^7.16.0",
     "@babel/runtime": "^7.16.3",
@@ -44,30 +45,30 @@
     "duplicate-package-checker-webpack-plugin": "^3.0.0",
     "file-loader": "^6.2.0",
     "generic-names": "^3.0.0",
-    "immer": "^9.0.6",
+    "immer": "^9.0.7",
     "lodash": "^4.17.21",
     "lodash-webpack-plugin": "^0.11.6",
-    "mini-css-extract-plugin": "^2.4.4",
+    "mini-css-extract-plugin": "^2.4.5",
     "node-sass": "^6.0.1",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "path": "^0.12.7",
-    "postcss": "^8.3.11",
+    "postcss": "^8.4.1",
     "postcss-loader": "^6.2.0",
     "precss": "^4.0.0",
     "process": "^0.11.10",
     "sass-loader": "^12.3.0",
     "style-loader": "^3.3.1",
-    "webpack": "^5.63.0",
+    "webpack": "^5.64.3",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.1",
     "webpack-common-shake": "^2.1.0",
-    "webpack-dev-server": "^4.4.0",
+    "webpack-dev-server": "^4.5.0",
     "webpack-manifest-plugin": "^4.0.2",
     "yargs": "^17.2.1"
   },
   "devDependencies": {
     "better-docs": "^2.3.2",
-    "eslint": "^8.2.0",
+    "eslint": "^8.3.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.3",
@@ -82,15 +83,7 @@
     "onchange": "^7.1.0",
     "prettier": "2.4.1"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "*.js": [
-      "npx eslint --fix",
-      "git add"
-    ]
+    "*.js": "eslint --cache --fix"
   }
 }
