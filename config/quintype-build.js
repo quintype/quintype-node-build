@@ -6,7 +6,6 @@ const fs = require("fs");
 module.exports = {
   modifyWebpackConfig: function({ defaultConfig }) {
     const config = produce(defaultConfig, function(draft) {
-      draft.node = { Buffer: false };
       draft.entry["font"] = "./app/client/font.js";
 
       const staticAssets = "./app/static-assets";

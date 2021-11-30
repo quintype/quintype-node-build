@@ -1,8 +1,12 @@
-Add notes on
+## Upgrading to @quintype/build 4
 
-1) Assets
-2) Babel (and the inability to add a babelrc)
-3) CSS modules (.module.css)
+Moving to `@quintype/build 4` is a _BREAKING CHANGE_
+
+```shell
+npm i --save-dev @quintype/build@4
+```
+Please ensure the versions of packages ( webpack, webpack-cli, etc... ) in the client app are same as that of this repo   
+
 
 ## Upgrading to @quintype/build 2
 

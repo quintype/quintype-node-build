@@ -5,7 +5,7 @@ const path = require("path");
 
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ManifestPlugin = require("webpack-manifest-plugin");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 
 exports.webpackConfig = function webpackConfig(
   publisherName,
@@ -32,31 +32,37 @@ exports.webpackConfig = function webpackConfig(
           sassLoader: [
             MiniCssExtractPlugin.loader,
             {
-              loader: "css-loader"
+              loader: "css-loader",
+              options: {
+                esModule: false
+              }
             },
             {
               loader: "sass-loader"
             }
           ],
           cssModuleLoader: [
-            MiniCssExtractPlugin.loader,
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                esModule: false
+              }
+            },
             {
               loader: "css-loader",
               options: {
                 modules: true,
+                esModule: true,
                 importLoaders: 1,
-                localIdentName: "[name]__[local]__[hash:base64:5]"
+                localIdentName: "[name]__[local]__[hash:base64:5]",
               }
             },
             {
               loader: "postcss-loader",
               options: {
-                ident: "postcss",
                 sourceMap: true,
-                plugins: loader => [
-                  require("precss")(),
-                  require("autoprefixer")
-                ]
+                postcssOptions: {
+                }
               }
             }
           ],
@@ -72,8 +78,11 @@ exports.webpackConfig = function webpackConfig(
       : {
           outputFileName: suffix => `[name].${suffix}`,
           sassLoader: [
-            { loader: "style-loader" },
-            { loader: "css-loader", options: { sourceMap: true } },
+            MiniCssExtractPlugin.loader,
+            {
+              loader: "css-loader",
+              options: { sourceMap: true, esModule: false }
+            },
             { loader: "sass-loader", options: { sourceMap: true } }
           ],
           cssModuleLoader: [
@@ -83,19 +92,17 @@ exports.webpackConfig = function webpackConfig(
               options: {
                 sourceMap: true,
                 modules: true,
+                esModule: true,
                 importLoaders: 1,
-                localIdentName: "[name]__[local]__[hash:base64:5]"
+                localIdentName: "[name]__[local]__[hash:base64:5]",
               }
             },
             {
               loader: "postcss-loader",
               options: {
-                ident: "postcss",
                 sourceMap: true,
-                plugins: loader => [
-                  require("precss")(),
-                  require("autoprefixer")
-                ]
+                postcssOptions: {
+                }
               }
             }
           ],
@@ -154,8 +161,8 @@ exports.webpackConfig = function webpackConfig(
     },
     plugins: [
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
-      new MiniCssExtractPlugin({ filename: config.cssFile }),
-      new ManifestPlugin({
+      new MiniCssExtractPlugin({ filename: config.cssFile, ignoreOrder: true }),
+      new WebpackManifestPlugin({
         map(asset) {
           return Object.assign(asset, {
             path: asset.path.replace(config.outputPublicPath, PUBLIC_PATH)
