@@ -6,6 +6,7 @@
   "scripts": {
     "docs": "rimraf docs && jsdoc -c jsdoc.json",
     "lint:js:ci": "npx eslint $(git diff --diff-filter=ACM --pretty='' --name-only origin/master..HEAD -- '*.js') 'src/index.js'",
+    "prepublishOnly": "./bin-dev-scripts/standard-version-release.sh",
     "sync-files-to": "npx onchange --verbose --wait --await-write-finish '**/*' -- ./bin-dev-scripts/sync-to.sh ",
     "prepare": "husky install"
   },
