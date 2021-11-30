@@ -7,6 +7,7 @@ npm i --save-dev @quintype/build@4
 ```
 Please ensure the versions of packages ( webpack, webpack-cli, etc... ) in the client app are same as that of this repo   
 
+
 ## Upgrading to @quintype/build 2
 
 In order to upgrade to build 2 (which comes with Webpack 4), run the following command:
