@@ -49,7 +49,7 @@
     "lodash": "^4.17.21",
     "lodash-webpack-plugin": "^0.11.6",
     "mini-css-extract-plugin": "^2.4.5",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.0",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "path": "^0.12.7",
     "postcss": "^8.4.1",
