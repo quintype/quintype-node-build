@@ -52,6 +52,7 @@
     "path": "^0.12.7",
     "postcss": "^8.4.4",
     "postcss-loader": "^6.2.1",
+    "postcss-preset-env": "^7.6.0",
     "precss": "^4.0.0",
     "process": "^0.11.10",
     "sass-loader": "^7.1.0",
