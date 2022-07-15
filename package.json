@@ -44,7 +44,7 @@
     "css-loader": "6.5.1",
     "duplicate-package-checker-webpack-plugin": "^3.0.0",
     "file-loader": "^6.2.0",
-    "generic-names": "^3.0.0",
+    "generic-names": "^4.0.0",
     "immer": "^9.0.7",
     "lodash": "^4.17.21",
     "lodash-webpack-plugin": "^0.11.6",
