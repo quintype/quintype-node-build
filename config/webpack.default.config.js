@@ -26,9 +26,7 @@ function getCssModuleConfig({ env = "development" }) {
     options: {
       sourceMap: true,
       modules: {
-        getLocalIdent: (context, localIdentName, localName) => {
-          return generateScopedName(localName, context.resourcePath)
-        }
+        localIdentName: getCssClassNames()
       },
       importLoaders: 1
     }
