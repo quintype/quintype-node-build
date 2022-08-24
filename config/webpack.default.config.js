@@ -213,11 +213,6 @@ function getConfig(opts) {
       hot: opts.env !== "production",
     },
     devtool: config.sourceMapType,
-    optimization: {
-      splitChunks: {
-        chunks: "all",
-      },
-    },
   };
 }
 
