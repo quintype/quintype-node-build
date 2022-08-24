@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const fs = require("fs");
 const path = require("path");
-const genericNames = require('generic-names');
+const genericNames = require("generic-names");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
@@ -11,7 +11,7 @@ const { getCssClassNames } = require("./utils");
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 const generate = genericNames(getCssClassNames(), {
-  context: process.cwd()
+  context: process.cwd(),
 });
 
 const generateScopedName = (localName, filePath) => {
@@ -20,18 +20,18 @@ const generateScopedName = (localName, filePath) => {
 };
 
 function getCssModuleConfig({ env = "development" }) {
-  const extractLoader =  MiniCssExtractPlugin.loader;
+  const extractLoader = MiniCssExtractPlugin.loader;
   const cssLoader = {
     loader: "css-loader",
     options: {
       sourceMap: true,
       modules: {
         getLocalIdent: (context, localIdentName, localName) => {
-          return generateScopedName(localName, context.resourcePath)
-        }
+          return generateScopedName(localName, context.resourcePath);
+        },
       },
-      importLoaders: 1
-    }
+      importLoaders: 1,
+    },
   };
   const preProcessCssLoader = {
     loader: "postcss-loader",
@@ -39,11 +39,11 @@ function getCssModuleConfig({ env = "development" }) {
       sourceMap: true,
       postcssOptions: (loaderContext) => {
         return {
-          plugins: [require("precss")(), require("autoprefixer")]
-        }
+          plugins: [require("precss")(), require("autoprefixer")],
+        };
       },
     },
-  }
+  };
   return [extractLoader, cssLoader, preProcessCssLoader];
 }
 
@@ -51,7 +51,7 @@ function getSassConfig({ env = "development" }) {
   return [
     MiniCssExtractPlugin.loader,
     { loader: "css-loader", options: { sourceMap: true } },
-    { loader: "sass-loader", options: { sourceMap: true } }
+    { loader: "sass-loader", options: { sourceMap: true } },
   ];
 }
 
@@ -65,9 +65,9 @@ function getBabelConfig() {
         plugins: ["lodash"],
         // this path needs to be relative to this file and not PWD
         configFile: path.resolve(__dirname, "./babel.js"),
-        sourceType: "unambiguous"
-      }
-    }
+        sourceType: "unambiguous",
+      },
+    },
   ];
 }
 
@@ -75,7 +75,7 @@ function entryFiles(opts) {
   let entryFiles = {};
 
   if (fs.existsSync("./app/client/polyfill.js")) {
-    entryFiles["polyfill"] = "./app/client/polyfill.js";
+    entryFiles.polyfill = "./app/client/polyfill.js";
   }
 
   entryFiles = Object.assign(
@@ -83,7 +83,7 @@ function entryFiles(opts) {
     entryFiles,
     {
       app: "./app/client/app.js",
-      serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs"
+      serviceWorkerHelper: "./app/client/serviceWorkerHelper.sjs",
     },
     opts.entryFiles,
     opts.loadableConfig && opts.loadableConfig.entryFiles
@@ -97,13 +97,13 @@ function getProductionConfig(opts) {
   const cssModuleConfig = getCssModuleConfig({ ...opts, env: "production" });
   const PUBLIC_PATH = `/${opts.publisherName}/assets/`;
   return {
-    outputFileName: suffix => `[name]-[hash:20].${suffix}`,
+    outputFileName: (suffix) => `[name]-[hash:20].${suffix}`,
     sassConfig,
     cssModuleConfig,
     cssFile: `[name]-[contenthash:20].css`,
     compressCSSPlugins: [new OptimizeCssAssetsPlugin()],
     outputPublicPath: PUBLIC_PATH,
-    sourceMapType: "source-map"
+    sourceMapType: "source-map",
   };
 }
 
@@ -112,29 +112,26 @@ function getDevelopmentConfig(opts) {
   const cssModuleConfig = getCssModuleConfig({ ...opts, env: "development" });
   const PUBLIC_PATH = `/${opts.publisherName}/assets/`;
   return {
-    outputFileName: suffix => `[name].${suffix}`,
+    outputFileName: (suffix) => `[name].${suffix}`,
     sassConfig,
     cssModuleConfig,
     cssFile: `[name].css`,
     compressCSSPlugins: [],
     outputPublicPath: "http://localhost:8080" + PUBLIC_PATH,
-    sourceMapType: "eval-source-map"
+    sourceMapType: "eval-source-map",
   };
 }
 
 function getConfig(opts) {
   const PUBLIC_PATH = `/${opts.publisherName}/assets/`;
   const OUTPUT_DIRECTORY = path.resolve(`./public/${PUBLIC_PATH}`);
-  const config =
-    opts.env === "production"
-      ? getProductionConfig(opts)
-      : getDevelopmentConfig(opts);
+  const config = opts.env === "production" ? getProductionConfig(opts) : getDevelopmentConfig(opts);
   const includeLoadablePlugin = () => {
     if (opts.loadableConfig && Object.keys(opts.loadableConfig).length > 0) {
       const LoadablePlugin = require("@loadable/webpack-plugin");
       const loadablePluginInit = new LoadablePlugin({
         writeToDisk: true,
-        filename: path.resolve("stats.json")
+        filename: path.resolve("stats.json"),
       });
       return [loadablePluginInit];
     }
@@ -146,7 +143,7 @@ function getConfig(opts) {
     output: {
       path: OUTPUT_DIRECTORY,
       filename: config.outputFileName("js"),
-      publicPath: config.outputPublicPath
+      publicPath: config.outputPublicPath,
     },
     module: {
       rules: [
@@ -154,12 +151,12 @@ function getConfig(opts) {
         {
           test: /\.jsx?$/,
           include: /node_modules\/@quintype\/framework/,
-          use: getBabelConfig(opts)
+          use: getBabelConfig(opts),
         },
         {
           test: /\.jsx?$/,
           include: /node_modules\/@quintype\/components\/store/,
-          use: getBabelConfig(opts)
+          use: getBabelConfig(opts),
         },
         { test: /\.(sass|scss)$/, use: config.sassConfig },
         { test: /\.module.css$/, use: config.cssModuleConfig },
@@ -171,10 +168,10 @@ function getConfig(opts) {
             {
               loader: "css-loader",
               options: {
-                sourceMap: true
-              }
-            }
-          ]
+                sourceMap: true,
+              },
+            },
+          ],
         },
         {
           test: /\.(jpe?g|gif|png|svg|woff|woff2|eot|ttf|wav|mp3|ico|mp4)$/,
@@ -182,40 +179,40 @@ function getConfig(opts) {
           options: {
             context: "./app/assets",
             name: config.outputFileName("[ext]"),
-            esModule: false
-          }
-        }
-      ]
+            esModule: false,
+          },
+        },
+      ],
     },
     plugins: [
       new LodashModuleReplacementPlugin({
-        paths: true
+        paths: true,
       }),
       new MiniCssExtractPlugin({
         filename: config.cssFile,
-        ignoreOrder: true
+        ignoreOrder: true,
       }),
       new webpack.EnvironmentPlugin({ NODE_ENV: "development" }),
       new WebpackManifestPlugin({
         map(asset) {
           return Object.assign(asset, {
-            path: asset.path.replace(config.outputPublicPath, PUBLIC_PATH)
+            path: asset.path.replace(config.outputPublicPath, PUBLIC_PATH),
           });
         },
         fileName: "../../../asset-manifest.json",
         publicPath: PUBLIC_PATH,
-        writeToFileEmit: true
+        writeToFileEmit: true,
       }),
       new DuplicatePackageCheckerPlugin({
-        verbose: true
+        verbose: true,
       }),
-      ...includeLoadablePlugin()
+      ...includeLoadablePlugin(),
     ].concat(config.compressCSSPlugins),
     devServer: {
       headers: { "Access-Control-Allow-Origin": "*" },
-      hot: opts.env !== "production"
+      hot: opts.env !== "production",
     },
-    devtool: config.sourceMapType
+    devtool: config.sourceMapType,
   };
 }
 
