@@ -11,6 +11,6 @@ rm -rf app/client # Removing app/client so that no one accidently requires it
 BABEL_TARGET=node npx --no-install -p @babel/cli -p @babel/core babel app -d app
 
 rm -rf node-modules
-npm install --no-optional --production
+npm install --legacy-peer-deps --production
 
 rm -rf /app/.git /app/.npm
