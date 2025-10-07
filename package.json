@@ -51,11 +51,13 @@
     "node-sass": "^9.0.0",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "path": "^0.12.7",
+    "pbkdf2": "^3.1.5",
     "postcss": "^8.4.1",
     "postcss-loader": "^6.2.0",
     "precss": "^4.0.0",
     "process": "^0.11.10",
     "sass-loader": "^12.3.0",
+    "sha.js": "^2.4.12",
     "style-loader": "^3.3.1",
     "webpack": "^5.64.3",
     "webpack-bundle-analyzer": "^4.5.0",
@@ -75,12 +77,16 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^5.1.1",
     "eslint-plugin-standard": "^4.1.0",
-    "gh-pages": "^3.2.3",
+    "gh-pages": "^6.3.0",
     "husky": "^7.0.0",
     "jsdoc": "^3.6.7",
     "lint-staged": "^11.2.6",
     "onchange": "^7.1.0",
     "prettier": "2.4.1"
+  },
+  "engines":{
+    "node": "^20.0.0",
+    "npm": "^10.0.0"
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
