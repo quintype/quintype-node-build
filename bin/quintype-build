@@ -8,7 +8,7 @@ BABEL_TARGET=browser npm run compile
 
 rm -rf app/client # Removing app/client so that no one accidently requires it
 
-BABEL_TARGET=node npx --no-install -p @babel/cli -p @babel/core babel app -d app
+BABEL_TARGET=node npx --no-install -p @babel/cli@^7.2.3 -p @babel/core@^7.3.3 babel app -d app
 
 rm -rf node-modules
 npm install --no-optional --production
